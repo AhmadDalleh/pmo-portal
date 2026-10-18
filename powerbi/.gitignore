@@ -1,0 +1,4 @@
+# Power BI local files (never commit)
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+*.pbix.bak

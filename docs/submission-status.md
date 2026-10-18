@@ -96,7 +96,7 @@ Legend: DONE / PARTIAL / MISSING / MANUAL (only you can do it). Effort: S under 
 |---|---|---|---|---|
 | Reporting views for Power BI | DONE (session C+D) | migration `ReportingViews`: 8 views (`dim_date`, `dim_project`, `vw_*_facts`, `vw_project_financials`); `ReportingViewTests` (5 tests) | - | - |
 | 4 commented SQL queries (overdue, project finance, open high risks, period spend/forecast or milestones) | DONE (session C+D) | `sql/reports/01..04_*.sql` + README, run against the live DB | - | - |
-| Power BI `.pbix` (model, date table, 5 DAX measures, slicers, page) | MANUAL | build in Power BI Desktop; inputs ready: `powerbi/README.md` (connection, model, filter direction, page design), `powerbi/measures.dax` (12 measures) | You | L |
+| Power BI `.pbix` (model, date table, 5 DAX measures, slicers, page) | PARTIAL: generated project, untested in Desktop | `powerbi/PmoReport.pbip` (TMDL model with 15 measures + 1 report page); validated against Microsoft's TMDL parser, PBIR schemas and the live view columns. You: open in Power BI Desktop, refresh, fix any load error, Save as .pbix | You | S |
 | Reconcile 4 KPIs across SQL, web, Power BI | PARTIAL | `docs/reconciliation.md` has 7 KPIs with SQL and web values filled and discrepancy notes; Power BI column to fill after the report is built | You | S |
 
 ## §8 Automation and Access
