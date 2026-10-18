@@ -40,7 +40,7 @@ Legend: DONE / PARTIAL / MISSING / MANUAL (only you can do it). Effort: S under 
 | 3.1 Reusable architecture explained | DONE | `docs/walkthrough/*`, slices | - | - |
 | 3.1 Accessibility | PARTIAL | aria labels, icon+text badges. No automated or manual contrast/keyboard audit | Claude | S |
 | 3.2 Real endpoints, route list | DONE | 17 controllers; `docs/api-routes.md`; Swagger UI at `/swagger` | - | - |
-| 3.2 OpenAPI collection exported | PARTIAL | Swagger is live but no exported `openapi.json` / Postman file in repo | Claude | S |
+| 3.2 OpenAPI collection exported | DONE (session E) | `docs/api/openapi.json` (64 paths) plus regeneration command in `docs/api-routes.md` | - | - |
 | 3.2 Server-side rules, HTTP status codes, ProblemDetails | DONE | `GlobalExceptionHandler`, validators, tests | - | - |
 | 3.2 Transaction integrity | DONE | `Decide_WhenTheOutboxInsertFails_RollsBack...`; post cost + audit in one transaction | - | - |
 | 3.3 Schema, constraints, indexes, migrations | DONE | `Migrations/20261018093705_InitialSchema`, 27 tables, CHECKs, triggers; `database-design.md` | - | - |
@@ -55,7 +55,7 @@ Legend: DONE / PARTIAL / MISSING / MANUAL (only you can do it). Effort: S under 
 | 3.5 At least five automated checks + manual checklist | DONE | 241 tests; `docs/manual-test-checklist.md` | - | - |
 | 3.5 Git history, setup, `.env.example`, import | DONE | 14 conventional commits, README quick start, `scripts/import-data.*` | - | - |
 | 3.5 Docker Compose | PARTIAL | `docker-compose.yml` has only `db`; no api/web images (README says so). Optional | Claude | M |
-| Frontend README | PARTIAL | `src/frontend/pmo-web/README.md` is still the Angular CLI default | Claude | S |
+| Frontend README | DONE (session E) | `src/frontend/pmo-web/README.md` rewritten (run, structure, conventions) | - | - |
 
 ## §4 Finance definitions
 | Item | Status | Evidence or gap | Owner | Effort |
@@ -88,7 +88,7 @@ Legend: DONE / PARTIAL / MISSING / MANUAL (only you can do it). Effort: S under 
 | Snapshots per project, automation runs | DONE | 90 snapshots, 30 runs, 9 outbox | - | - |
 | Edge cases (no spend, nearing budget, forecast overrun, 5 overdue, due on cutoff, unassigned, completed project, closed high risk, returned/rejected CR, approved/unapproved revision, draft + post-cutoff costs, no-forecast project) | DONE | psql: overdue 8, due on cutoff 1, unassigned 2, completed 1, closed high 1, open high 3, returned 2, rejected 2, revisions approved 6 / pending 1 / rejected 1, drafts 19, after cutoff 2, no forecast 2, no posted spend 2; asserted in `EdgeCaseChecks` | - | - |
 | Generated CSVs committed | DONE | 19 files in `data/csv` | - | - |
-| Data dictionary | PARTIAL | table/column docs are inside `database-design.md` (597 lines); no short standalone data dictionary for the CSVs | Claude | S |
+| Data dictionary | DONE (session E) | `docs/data-dictionary.md`: one section per CSV with types, keys, unique indexes and CHECKs | - | - |
 | Production uses today or chosen date | DONE | `Reporting:DefaultAsOf` + `asOf` parameter, documented | - | - |
 
 ## §7 SQL and Power BI
@@ -112,7 +112,7 @@ Legend: DONE / PARTIAL / MISSING / MANUAL (only you can do it). Effort: S under 
 | At least 1 AI-wrong case | DONE | #1 (Program clash), #5 (seed audit names), #6 (integer division) are real | - | - |
 | Prompt strategy | DONE | section at top | - | - |
 | Disclosure table | PARTIAL | table rows are blank; "accepted/rejected" columns need your own words | You | S |
-| Entry for the admin-UI bug (`multiTemplateDataRows`) and demo-password 401 | MISSING | not yet logged | Claude (draft) / You (edit) | S |
+| Entries for the admin-UI bug (`multiTemplateDataRows`) and the wrong importer claim in this audit | DRAFTED (#7, #8) | `docs/ai-development-log.md`; fill in "accepted / rejected by me" in your words | You | S |
 
 ## §10 Acceptance tests
 | Test | Status | Evidence or gap | Owner | Effort |
@@ -135,7 +135,7 @@ Legend: DONE / PARTIAL / MISSING / MANUAL (only you can do it). Effort: S under 
 | Power BI `.pbix` + commented SQL + reconciliation notes | MISSING | see §7 | You + Claude | L |
 | Access `.accdb` | MISSING | optional | You | M |
 | Automation evidence | PARTIAL | code and tests exist; no saved run-evidence file (screenshot, log excerpt) | You | S |
-| Architecture and security notes | PARTIAL | security notes DONE; architecture is one README paragraph plus slices, no diagram or single architecture note | Claude | S |
+| Architecture and security notes | DONE (session E) | `docs/architecture.md` (diagram, layers, request flow, decisions) and `docs/security-notes.md` | - | - |
 | 6-8 slide deck | MISSING | no slides in repo | You (Claude drafts outline and speaker notes) | M |
 
 ## Specific items you asked about

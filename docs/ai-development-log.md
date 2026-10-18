@@ -95,3 +95,29 @@ Required by assignment §9: ≥ 4 meaningful iterations, ≥ 1 case where AI was
 - **Fix:** `tk.weighted_progress::numeric / NULLIF(tk.total_weight, 0)`.
 - **Test evidence:** `DashboardTests.Kpis_Unfiltered_MatchIndependentSqlOverTheWholeDatabase` compares every KPI with a raw SQL statement written separately.
 - **Was the AI wrong?** Yes. Found because the test computes the expected value with its own SQL, not with the code under test.
+
+---
+
+### #7 — Expandable audit row passed `ng build` but broke every table at runtime (A4, A5, H3, F2, 2026-10-18) — DRAFT, edit in your words
+- **Requirement / problem:** the audit screen needs an expandable row showing the event JSON, using the shared `data-table`.
+- **Prompt (summary):** "Build the Admin UI with the shared components; audit rows expand to show correlation id and data JSON."
+- **AI result:** extended `DataTable` with an optional `detail` template and added a second `mat-row` definition for the detail row. `ng build` and the tests passed. In the browser the Users tab stayed on "Loading..." forever.
+- **What was wrong:** Angular Material allows only one default row definition unless the table has `multiTemplateDataRows`; the check happens at runtime, so the compiler never saw it. The same error would have broken every table in the app (projects, tasks, costs), not only the admin ones.
+- **How it was found:** the browser console showed `There can only be one default row without a when predicate function. Or set multiTemplateDataRows`; the table component threw while rendering, so the page never left its loading state.
+- **Fix:** `multiTemplateDataRows` on the `<table mat-table>` in `shared/data-table/data-table.ts`; detail rows stay hidden (`display:none`) unless that row is expanded.
+- **Test evidence:** re-checked in the browser: users, audit (row expands with correlation id and JSON), automation, categories all render; `ng build` passes. There is no frontend test that would have caught it (known gap).
+- **Was the AI wrong?** Yes: a green build is not proof that a UI change works. Lesson: open the page after changing a shared component, and read the console.
+- **Accepted / rejected by me:** *(you fill in)*
+
+---
+
+### #8 — Audit report claimed the importer does not overwrite data (submission audit, 2026-10-18) — DRAFT, edit in your words
+- **Requirement / problem:** explain why outbox message 7 (a seeded failed message) showed `processed` in the database.
+- **Prompt (summary):** "Audit the repo against the brief; find the root cause for outbox message 7."
+- **AI result:** the first version of `docs/submission-status.md` said the importer does not overwrite existing rows, so the failed example "is gone unless you reset the database".
+- **What was wrong:** an assumption made without opening the code. `CsvImporter.ResetAsync` runs `TRUNCATE ... RESTART IDENTITY CASCADE` and reloads every CSV in one transaction, so a re-import always restores message 7 as `failed`. The message had been retried through the Admin screen.
+- **How it was found:** while writing the `reset-db` script the importer had to be read; the truncate was visible, and a fresh reset (message 7 `failed`, 5 attempts) plus a real retry through the API confirmed it (`docs/automation-evidence.md`).
+- **Fix:** corrected the status document; `scripts/reset-db.*` wraps the importer and prints the outbox afterwards.
+- **Test evidence:** reset-db output showing `7 | budget:9:100 | failed | 5`, then the retry and worker run recorded in `docs/automation-evidence.md`.
+- **Was the AI wrong?** Yes: an analytical claim about behaviour that was not checked in the code. Lesson: for "does X do Y" questions, read X or run it before writing the answer.
+- **Accepted / rejected by me:** *(you fill in)*
