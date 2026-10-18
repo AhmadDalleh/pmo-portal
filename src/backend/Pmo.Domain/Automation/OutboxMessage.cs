@@ -16,4 +16,11 @@ public class OutboxMessage
     public int Attempts { get; set; }
     public DateTimeOffset? ProcessedAt { get; set; }
     public string? LastError { get; set; }
+
+    /// <summary>A pending message for the background worker. The payload holds ids only. DedupKey makes the same event impossible to queue twice.</summary>
+    public static OutboxMessage Create(string type, string dedupKey, object payload, DateTimeOffset now) => new()
+    {
+        Type = type, DedupKey = dedupKey, Payload = System.Text.Json.JsonSerializer.Serialize(payload),
+        Status = OutboxStatus.Pending, OccurredAt = now, AvailableAt = now
+    };
 }

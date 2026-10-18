@@ -1,4 +1,6 @@
 using System.Net.Http.Json;
+using Pmo.Application.Features.Finance.Commands;
+using Pmo.Application.Features.Finance.Dtos;
 using Pmo.Application.Features.Milestones.Dtos;
 using Pmo.Application.Features.Projects.Commands;
 using Pmo.Application.Features.Projects.Dtos;
@@ -47,4 +49,35 @@ public static class ApiTestHelpers
         response.EnsureSuccessStatusCode();
         return (await response.Content.ReadFromJsonAsync<MilestoneDto>())!;
     }
+
+    /// <summary>Creates a draft cost (new Idempotency-Key unless one is given).</summary>
+    public static async Task<HttpResponseMessage> PostCostAsync(this HttpClient pm, int projectId, decimal amount, DateOnly? date = null,
+        int categoryId = 1, Guid? key = null)
+    {
+        var request = new HttpRequestMessage(HttpMethod.Post, $"/api/projects/{projectId}/costs")
+        {
+            Content = JsonContent.Create(new CreateCostCommand(categoryId, date ?? new DateOnly(2026, 8, 1), amount, "Helper cost", "Test vendor", null))
+        };
+        request.Headers.Add("Idempotency-Key", (key ?? Guid.NewGuid()).ToString());
+        return await pm.SendAsync(request);
+    }
+
+    public static async Task<CostDto> CreateCostAsync(this HttpClient pm, int projectId, decimal amount, DateOnly? date = null, int categoryId = 1)
+    {
+        var response = await pm.PostCostAsync(projectId, amount, date, categoryId);
+        response.StatusCode.ShouldBe(System.Net.HttpStatusCode.Created, await response.Content.ReadAsStringAsync());
+        return (await response.Content.ReadFromJsonAsync<CostDto>())!;
+    }
+
+    /// <summary>Creates a draft and posts it, the way the UI does (create, confirm dialog, post).</summary>
+    public static async Task<CostDto> CreatePostedCostAsync(this HttpClient pm, int projectId, decimal amount, DateOnly? date = null)
+    {
+        var draft = await pm.CreateCostAsync(projectId, amount, date);
+        var response = await pm.PostAsJsonAsync($"/api/finance/costs/{draft.Id}/post", new PostCostCommand(draft.Version));
+        response.StatusCode.ShouldBe(System.Net.HttpStatusCode.OK, await response.Content.ReadAsStringAsync());
+        return (await response.Content.ReadFromJsonAsync<CostDto>())!;
+    }
+
+    public static async Task<FinanceSummaryDto> FinanceAsync(this HttpClient client, int projectId, string asOf = "")
+        => (await client.GetFromJsonAsync<FinanceSummaryDto>($"/api/projects/{projectId}/finance/summary{asOf}"))!;
 }

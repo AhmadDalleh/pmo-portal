@@ -46,3 +46,23 @@ Sort keys: `code, name, department, owner, status, start, end, progress, utiliza
 | POST | `/admin/snapshots/run?date` | ADM | 200 | 403; idempotent upsert |
 
 Task sort keys: `due, title, status, priority, progress, weight`. Task `indicator`: `overdue`, `due_today`, `due_soon` (within 14 days) or empty.
+
+## Finance (slice 5)
+`CanPostCosts` = Project Manager or Administrator role policy; every write then also needs management of the project.
+| Method | Route | Who | Success | Errors |
+|---|---|---|---|---|
+| GET | `/projects/{id}/finance/summary?asOf` | any (scope) | 200 | 404 |
+| GET | `/projects/{id}/finance/by-category?asOf` | any (scope) | 200 | |
+| GET | `/projects/{id}/finance/monthly?asOf&categoryId` | any (scope) | 200 | |
+| GET | `/projects/{id}/costs?status&categoryId&from&to&page&pageSize` | any (scope) | 200 paged | 400, 404 |
+| GET | `/finance/costs/{id}` | any (scope) | 200 | 404 |
+| POST | `/projects/{id}/costs` + header `Idempotency-Key: <guid>` | CanPostCosts | 201 (200 with the original on a repeat) | 400 `idempotency_key_required`/`category_not_found`/validation, 403, 404, 409 `idempotency_key_reused` |
+| PUT | `/finance/costs/{id}` | CanPostCosts | 200 | 409 `posted_immutable` / `concurrency_conflict` |
+| DELETE | `/finance/costs/{id}` | CanPostCosts | 204 | 409 `posted_immutable` |
+| POST | `/finance/costs/{id}/post` `{version}` | CanPostCosts | 200 | 403, 404, 409 `already_posted` / `concurrency_conflict` |
+| POST | `/finance/costs/{id}/reverse` `{reason}` | CanPostCosts | 201 | 409 `already_reversed` / `not_posted` / `cannot_reverse_reversal` |
+| GET | `/projects/{id}/budget-revisions` | any (scope) | 200 | |
+| POST | `/projects/{id}/budget-revisions` | PM + manages project | 201 | 400 `budget_would_be_negative` / `change_request_*`, 403 |
+| POST | `/finance/budget-revisions/{id}/decision` `{decision: approved or rejected, reason, version}` | ADM | 200 | 403 `self_approval_forbidden`, 409 `invalid_transition` |
+| GET / PUT | `/projects/{id}/forecasts` (PUT = whole grid, upsert) | read: any (scope); write: PM + manages | 200 | 400 `forecast_month_not_future` / `duplicate_forecast_cell` |
+| GET / POST / PUT | `/finance/cost-categories` (writes ADM) | any / ADM | 200 / 201 | 409 `duplicate_category` |

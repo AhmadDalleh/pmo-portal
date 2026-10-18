@@ -68,3 +68,12 @@ Required by assignment §9: ≥ 4 meaningful iterations, ≥ 1 case where AI was
 - **AI result / what was wrong:** (1) tests read `smallint` columns as `int` (PostgreSQL returns Int16); (2) I assumed the on-hold project has exactly one overdue milestone, but the seed rule leaves every past-due milestone of an on-hold project pending; (3) the history test assumed the newest snapshot is the seed one, but the "run snapshot" test adds a later one.
 - **Fix:** read as `short`; assert the specific milestone is among the overdue ones; look up the 2026-09-30 snapshot explicitly. No production code changed, the assumptions in the tests were wrong.
 - **Was the AI wrong?** Yes, in the tests (not the code). Found from the failure message in one run.
+
+---
+
+### #4 — Reversal date and alert rules (F6, F7, H2, 2026-10-18)
+- **Requirement:** reversal row for a posted cost; alert when a posting newly crosses 90% / 100%.
+- **Prompt (summary):** "Slice 5: revisions, draft/post/reverse costs, forecasts, summary."
+- **AI result / decision:** the brief gives no date for the reversal. A reversal dated today would not net out at the 2026-09-30 reporting date, so the demo "reverse, spend drops" would silently fail. Chose "same date as the original" and documented it (`CostTransaction.Reverse`). The threshold rule compares utilisation before and after the posting at the reporting date and relies on the UNIQUE dedup key to stay once-only.
+- **Accepted:** all code passed its 46 new tests on the first run.
+- **Was the AI wrong?** No wrong code this slice; the point worth defending in the interview is the reversal-date trade-off above.

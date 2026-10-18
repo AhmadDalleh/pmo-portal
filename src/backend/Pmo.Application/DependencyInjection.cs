@@ -2,6 +2,10 @@ using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Pmo.Application.Common;
 using Pmo.Application.Common.Abstractions;
+using Pmo.Application.Features.Finance;
+using Pmo.Application.Features.Finance.Commands;
+using Pmo.Application.Features.Finance.Queries;
+using Pmo.Application.Features.Finance.Validators;
 using Pmo.Application.Features.Lookups;
 using Pmo.Application.Features.Projects;
 using Pmo.Application.Features.Projects.Commands;
@@ -34,6 +38,12 @@ public static class DependencyInjection
         services.AddScoped<TaskService>();
         services.AddScoped<MilestoneService>();
         services.AddScoped<SnapshotService>();
+        services.AddScoped<CostMapper>();
+        services.AddScoped<CostService>();
+        services.AddScoped<FinanceQueryService>();
+        services.AddScoped<BudgetRevisionService>();
+        services.AddScoped<ForecastService>();
+        services.AddScoped<CostCategoryService>();
 
         services.AddScoped<IValidator<CreateProjectCommand>, CreateProjectValidator>();
         services.AddScoped<IValidator<UpdateProjectCommand>, UpdateProjectValidator>();
@@ -47,6 +57,15 @@ public static class DependencyInjection
         services.AddScoped<IValidator<MyTasksQuery>, MyTasksValidator>();
         services.AddScoped<IValidator<CreateMilestoneCommand>, CreateMilestoneValidator>();
         services.AddScoped<IValidator<UpdateMilestoneCommand>, UpdateMilestoneValidator>();
+        services.AddScoped<IValidator<CreateCostCommand>, CreateCostValidator>();
+        services.AddScoped<IValidator<UpdateCostCommand>, UpdateCostValidator>();
+        services.AddScoped<IValidator<ReverseCostCommand>, ReverseCostValidator>();
+        services.AddScoped<IValidator<CostSearchQuery>, CostSearchValidator>();
+        services.AddScoped<IValidator<RequestRevisionCommand>, RequestRevisionValidator>();
+        services.AddScoped<IValidator<DecideRevisionCommand>, DecideRevisionValidator>();
+        services.AddScoped<IValidator<SaveForecastsCommand>, SaveForecastsValidator>();
+        services.AddScoped<IValidator<CreateCategoryCommand>, CreateCategoryValidator>();
+        services.AddScoped<IValidator<UpdateCategoryCommand>, UpdateCategoryValidator>();
         return services;
     }
 }

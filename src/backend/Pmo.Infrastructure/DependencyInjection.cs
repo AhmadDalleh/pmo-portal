@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Npgsql;
 using Pmo.Application.Common.Abstractions;
+using Pmo.Application.Features.Finance;
 using Pmo.Application.Features.Projects;
 using Pmo.Application.Features.Snapshots;
 using Pmo.Infrastructure.Analytics;
@@ -34,6 +35,7 @@ public static class DependencyInjection
         services.AddSingleton(NpgsqlDataSource.Create(connectionString));
         services.AddScoped<IProjectReadModel, ProjectReadModel>();
         services.AddScoped<ISnapshotRunner, SnapshotRunner>();
+        services.AddScoped<IFinanceReadModel, FinanceReadModel>();
 
         services.AddScoped<IDatabaseHealthCheck, DatabaseHealthCheck>();
         services.AddScoped<IUserDirectory, UserDirectory>();
