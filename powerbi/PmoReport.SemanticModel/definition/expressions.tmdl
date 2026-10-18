@@ -1,5 +1,10 @@
 expression ServerName = "localhost:5433" meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
 	lineageTag: 93eb7116-8eba-574c-bec3-483e82c749a1
 
+	annotation PBI_ResultType = Text
+
 expression DatabaseName = "pmo_db" meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
 	lineageTag: ae93f9c6-7a3d-5ba2-930d-06ec837731bd
+
+	annotation PBI_ResultType = Text
+

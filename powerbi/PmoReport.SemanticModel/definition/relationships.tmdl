@@ -41,3 +41,4 @@ relationship 7f4b0d3a-f2ea-54ee-9f3d-6ea5ed3c5c67
 relationship d50e3630-2c05-56cb-a137-0b0e5e87aeed
 	fromColumn: vw_risk_facts.due_date
 	toColumn: dim_date.date_key
+

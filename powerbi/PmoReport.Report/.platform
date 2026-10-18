@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "PmoReport"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "2c73d8ba-2fc8-4b4c-9500-5c175a939c80"
+  }
+}

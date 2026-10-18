@@ -4,45 +4,45 @@ table dim_date
 
 	column date_key
 		dataType: dateTime
-		formatString: yyyy-mm-dd
 		isKey
+		formatString: yyyy-mm-dd
+		lineageTag: 56f25f0d-1442-517d-8989-485ade5b233a
 		summarizeBy: none
 		sourceColumn: date_key
-		lineageTag: 56f25f0d-1442-517d-8989-485ade5b233a
 
 	column year
 		dataType: int64
 		formatString: 0
+		lineageTag: 1a75a34b-98be-538d-b3b8-665ca3c20934
 		summarizeBy: none
 		sourceColumn: year
-		lineageTag: 1a75a34b-98be-538d-b3b8-665ca3c20934
 
 	column quarter
 		dataType: int64
 		formatString: 0
+		lineageTag: ff664fcf-6cc5-5cd3-b091-059b4f5744d2
 		summarizeBy: none
 		sourceColumn: quarter
-		lineageTag: ff664fcf-6cc5-5cd3-b091-059b4f5744d2
 
 	column month_number
 		dataType: int64
 		formatString: 0
+		lineageTag: 555f2366-fff8-518a-82a7-1e5b625a5d30
 		summarizeBy: none
 		sourceColumn: month_number
-		lineageTag: 555f2366-fff8-518a-82a7-1e5b625a5d30
 
 	column month_name
 		dataType: string
+		lineageTag: 62654bd3-ce59-5211-9b9f-a8ae80bf2560
 		summarizeBy: none
 		sourceColumn: month_name
-		lineageTag: 62654bd3-ce59-5211-9b9f-a8ae80bf2560
 
 	column month_start
 		dataType: dateTime
 		formatString: yyyy-mm-dd
+		lineageTag: a8108451-cf8e-535b-acda-989561218a6e
 		summarizeBy: none
 		sourceColumn: month_start
-		lineageTag: a8108451-cf8e-535b-acda-989561218a6e
 
 	partition dim_date = m
 		mode: import
@@ -53,3 +53,4 @@ table dim_date
 					Typed = Table.TransformColumnTypes(Data, {{"date_key", type date}, {"year", Int64.Type}, {"quarter", Int64.Type}, {"month_number", Int64.Type}, {"month_name", type text}, {"month_start", type date}})
 				in
 					Typed
+

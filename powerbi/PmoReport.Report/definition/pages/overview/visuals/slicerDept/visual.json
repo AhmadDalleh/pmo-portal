@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "slicerDept",
   "position": {
     "x": 20,
     "y": 168,
-    "width": 200,
+    "z": 0,
     "height": 62,
-    "z": 0
+    "width": 200
   },
   "visual": {
     "visualType": "slicer",
@@ -26,13 +26,13 @@
                 }
               },
               "queryRef": "dim_project.department",
-              "nativeQueryRef": "department"
+              "nativeQueryRef": "department",
+              "active": true
             }
           ]
         }
       }
     },
-    "drillFilterOtherVisuals": true,
     "objects": {
       "data": [
         {
@@ -82,6 +82,7 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }

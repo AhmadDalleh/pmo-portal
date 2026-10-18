@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "spendByCategory",
   "position": {
     "x": 20,
     "y": 484,
-    "width": 300,
+    "z": 0,
     "height": 226,
-    "z": 0
+    "width": 300
   },
   "visual": {
     "visualType": "donutChart",
@@ -26,7 +26,8 @@
                 }
               },
               "queryRef": "vw_cost_facts.category_name",
-              "nativeQueryRef": "category_name"
+              "nativeQueryRef": "category_name",
+              "active": true
             }
           ]
         },
@@ -50,7 +51,6 @@
         }
       }
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -72,6 +72,7 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }

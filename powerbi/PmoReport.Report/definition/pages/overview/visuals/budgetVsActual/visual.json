@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "budgetVsActual",
   "position": {
     "x": 20,
     "y": 242,
-    "width": 620,
+    "z": 0,
     "height": 230,
-    "z": 0
+    "width": 620
   },
   "visual": {
     "visualType": "clusteredColumnChart",
@@ -26,7 +26,8 @@
                 }
               },
               "queryRef": "dim_project.project_code",
-              "nativeQueryRef": "project_code"
+              "nativeQueryRef": "project_code",
+              "active": true
             }
           ]
         },
@@ -78,7 +79,6 @@
         }
       }
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -100,6 +100,7 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }

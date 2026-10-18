@@ -1,0 +1,139 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 1282.1319521692647,
+            "y": 431.51951480397929
+          },
+          "nodeIndex": "_Measures",
+          "nodeLineageTag": "560d0ef8-eae8-5bec-9c18-6a961f926e0f",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 762.63219434219559,
+            "y": 511.44287873721726
+          },
+          "nodeIndex": "dim_date",
+          "nodeLineageTag": "455a5223-a0f2-532e-9904-b4ded5d1cbad",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 478.53018180054443,
+            "y": 296.1766604597484
+          },
+          "nodeIndex": "dim_project",
+          "nodeLineageTag": "c6d5f7ff-334d-58bf-aa56-02e40fd9ee5a",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 194.41225799181859,
+            "y": 600.447871318909
+          },
+          "nodeIndex": "vw_cost_facts",
+          "nodeLineageTag": "9d4b169c-8a17-56b3-a874-77aee9f2d333",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 602.59976181672653,
+            "y": -50
+          },
+          "nodeIndex": "vw_forecast_facts",
+          "nodeLineageTag": "d317ab04-33f8-5fc5-9a4c-d74136ca72f0",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1048.1319521692647,
+            "y": 511.501398279063
+          },
+          "nodeIndex": "vw_milestone_facts",
+          "nodeLineageTag": "a5c2c539-f1bc-5b55-ba11-9bb3707bd80b",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 250.18131572406514
+          },
+          "nodeIndex": "vw_project_financials",
+          "nodeLineageTag": "f282fa96-4e43-5f85-83f1-295d75d1e0cc",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 478.57151703688839,
+            "y": 813.03902960795858
+          },
+          "nodeIndex": "vw_risk_facts",
+          "nodeLineageTag": "a7665137-c19c-563e-affc-4b03755e0b6b",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1007.4971448526541,
+            "y": 161.2892028716285
+          },
+          "nodeIndex": "vw_task_facts",
+          "nodeLineageTag": "b156ca11-fe3b-5ccf-863a-7f29f90cd6f3",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

@@ -3,63 +3,63 @@ table vw_forecast_facts
 
 	column forecast_id
 		dataType: int64
-		formatString: 0
 		isHidden
+		formatString: 0
+		lineageTag: 4cecc059-8f42-5a3f-8da0-51d102011140
 		summarizeBy: none
 		sourceColumn: forecast_id
-		lineageTag: 4cecc059-8f42-5a3f-8da0-51d102011140
 
 	column project_id
 		dataType: int64
-		formatString: 0
 		isHidden
+		formatString: 0
+		lineageTag: a7112a93-59b0-5edb-a880-4a22829fe5b5
 		summarizeBy: none
 		sourceColumn: project_id
-		lineageTag: a7112a93-59b0-5edb-a880-4a22829fe5b5
 
 	column project_code
 		dataType: string
+		lineageTag: d1fb89e1-29a1-5fc5-9025-b9ff0f3c66f0
 		summarizeBy: none
 		sourceColumn: project_code
-		lineageTag: d1fb89e1-29a1-5fc5-9025-b9ff0f3c66f0
 
 	column department
 		dataType: string
+		lineageTag: f7490344-1580-5db2-a1e0-1798da7352f4
 		summarizeBy: none
 		sourceColumn: department
-		lineageTag: f7490344-1580-5db2-a1e0-1798da7352f4
 
 	column category_code
 		dataType: string
+		lineageTag: 5f1dd404-96b8-5dc2-9c2f-aaf003665ce4
 		summarizeBy: none
 		sourceColumn: category_code
-		lineageTag: 5f1dd404-96b8-5dc2-9c2f-aaf003665ce4
 
 	column category_name
 		dataType: string
+		lineageTag: be5a6e93-73de-52f8-811e-2c2ed876cc2c
 		summarizeBy: none
 		sourceColumn: category_name
-		lineageTag: be5a6e93-73de-52f8-811e-2c2ed876cc2c
 
 	column period_month
 		dataType: dateTime
 		formatString: yyyy-mm-dd
+		lineageTag: 21b4982d-54d1-56fd-861f-2a26ed7f1884
 		summarizeBy: none
 		sourceColumn: period_month
-		lineageTag: 21b4982d-54d1-56fd-861f-2a26ed7f1884
 
 	column amount
 		dataType: decimal
 		formatString: #,0.00
+		lineageTag: b53c6ed2-7e71-5600-a370-6984207d0143
 		summarizeBy: none
 		sourceColumn: amount
-		lineageTag: b53c6ed2-7e71-5600-a370-6984207d0143
 
 	column is_future
 		dataType: boolean
+		lineageTag: 1d703c8c-aae6-5c8f-b5bb-d07b7f2d4263
 		summarizeBy: none
 		sourceColumn: is_future
-		lineageTag: 1d703c8c-aae6-5c8f-b5bb-d07b7f2d4263
 
 	partition vw_forecast_facts = m
 		mode: import
@@ -70,3 +70,4 @@ table vw_forecast_facts
 					Typed = Table.TransformColumnTypes(Data, {{"forecast_id", Int64.Type}, {"project_id", Int64.Type}, {"project_code", type text}, {"department", type text}, {"category_code", type text}, {"category_name", type text}, {"period_month", type date}, {"amount", Currency.Type}, {"is_future", type logical}})
 				in
 					Typed
+

@@ -3,135 +3,135 @@ table vw_project_financials
 
 	column project_id
 		dataType: int64
-		formatString: 0
 		isHidden
+		formatString: 0
+		lineageTag: 17a7e166-b89a-587b-b738-db3db30281d6
 		summarizeBy: none
 		sourceColumn: project_id
-		lineageTag: 17a7e166-b89a-587b-b738-db3db30281d6
 
 	column project_code
 		dataType: string
+		lineageTag: edb152f5-185d-5458-b6c4-a4f9aad83b5b
 		summarizeBy: none
 		sourceColumn: project_code
-		lineageTag: edb152f5-185d-5458-b6c4-a4f9aad83b5b
 
 	column project_name
 		dataType: string
+		lineageTag: 21c5903b-1c5c-5921-9d17-4f71d53b1702
 		summarizeBy: none
 		sourceColumn: project_name
-		lineageTag: 21c5903b-1c5c-5921-9d17-4f71d53b1702
 
 	column department
 		dataType: string
+		lineageTag: 60700548-ca95-52dc-b76b-11a2e9c7aa9f
 		summarizeBy: none
 		sourceColumn: department
-		lineageTag: 60700548-ca95-52dc-b76b-11a2e9c7aa9f
 
 	column owner_name
 		dataType: string
+		lineageTag: 9d47f2ca-f41a-5cda-8b1a-57039e643b79
 		summarizeBy: none
 		sourceColumn: owner_name
-		lineageTag: 9d47f2ca-f41a-5cda-8b1a-57039e643b79
 
 	column status
 		dataType: string
+		lineageTag: 2b7222b6-7130-5b7c-ba8e-8ae84add9318
 		summarizeBy: none
 		sourceColumn: status
-		lineageTag: 2b7222b6-7130-5b7c-ba8e-8ae84add9318
 
 	column currency
 		dataType: string
+		lineageTag: ae5e0eef-0f34-56d7-a882-63e20f67f8f4
 		summarizeBy: none
 		sourceColumn: currency
-		lineageTag: ae5e0eef-0f34-56d7-a882-63e20f67f8f4
 
 	column initial_amount
 		dataType: decimal
 		formatString: #,0.00
+		lineageTag: 7422991c-1b1b-5f2f-ad2c-810a49198e6b
 		summarizeBy: none
 		sourceColumn: initial_amount
-		lineageTag: 7422991c-1b1b-5f2f-ad2c-810a49198e6b
 
 	column current_budget
 		dataType: decimal
 		formatString: #,0.00
+		lineageTag: a0ed3a85-a0b5-52d2-8406-f2774e52a467
 		summarizeBy: none
 		sourceColumn: current_budget
-		lineageTag: a0ed3a85-a0b5-52d2-8406-f2774e52a467
 
 	column actual_spend
 		dataType: decimal
 		formatString: #,0.00
+		lineageTag: 1e87f7d1-3de4-58d1-89fb-50ff7ae55e5f
 		summarizeBy: none
 		sourceColumn: actual_spend
-		lineageTag: 1e87f7d1-3de4-58d1-89fb-50ff7ae55e5f
 
 	column remaining_budget
 		dataType: decimal
 		formatString: #,0.00
+		lineageTag: e8b2a795-9bdc-5211-ba3c-6ba083e8f8bf
 		summarizeBy: none
 		sourceColumn: remaining_budget
-		lineageTag: e8b2a795-9bdc-5211-ba3c-6ba083e8f8bf
 
 	column utilization
 		dataType: double
 		formatString: 0.0000
+		lineageTag: 44cf7acf-26ac-500e-98c7-d19051091016
 		summarizeBy: none
 		sourceColumn: utilization
-		lineageTag: 44cf7acf-26ac-500e-98c7-d19051091016
 
 	column forecast_to_complete
 		dataType: decimal
 		formatString: #,0.00
+		lineageTag: 1e8b4ae3-a5c4-5e58-8d3c-9facb4b94fac
 		summarizeBy: none
 		sourceColumn: forecast_to_complete
-		lineageTag: 1e8b4ae3-a5c4-5e58-8d3c-9facb4b94fac
 
 	column eac
 		dataType: decimal
 		formatString: #,0.00
+		lineageTag: b17eea20-c74e-5656-94c6-e1f51aec54b3
 		summarizeBy: none
 		sourceColumn: eac
-		lineageTag: b17eea20-c74e-5656-94c6-e1f51aec54b3
 
 	column projected_variance
 		dataType: decimal
 		formatString: #,0.00
+		lineageTag: 9bedca72-ab6d-5cd3-8eac-5948f445eb4b
 		summarizeBy: none
 		sourceColumn: projected_variance
-		lineageTag: 9bedca72-ab6d-5cd3-8eac-5948f445eb4b
 
 	column has_no_forecast
 		dataType: boolean
+		lineageTag: 881cdaa3-cc26-53a1-a0b7-6ff3d00a4037
 		summarizeBy: none
 		sourceColumn: has_no_forecast
-		lineageTag: 881cdaa3-cc26-53a1-a0b7-6ff3d00a4037
 
 	column is_overspent
 		dataType: boolean
+		lineageTag: 88eb0472-e207-5758-80ea-5adb8b891f87
 		summarizeBy: none
 		sourceColumn: is_overspent
-		lineageTag: 88eb0472-e207-5758-80ea-5adb8b891f87
 
 	column is_near_budget
 		dataType: boolean
+		lineageTag: 7e451b5d-b8de-5ccf-bffd-ab0e6f7d67e4
 		summarizeBy: none
 		sourceColumn: is_near_budget
-		lineageTag: 7e451b5d-b8de-5ccf-bffd-ab0e6f7d67e4
 
 	column is_projected_overrun
 		dataType: boolean
+		lineageTag: e41efdf1-25f4-5289-968b-0458fdba2060
 		summarizeBy: none
 		sourceColumn: is_projected_overrun
-		lineageTag: e41efdf1-25f4-5289-968b-0458fdba2060
 
 	column as_of_date
 		dataType: dateTime
-		formatString: yyyy-mm-dd
 		isHidden
+		formatString: yyyy-mm-dd
+		lineageTag: a0a18022-1b67-5fed-967a-a8bf4c158d8e
 		summarizeBy: none
 		sourceColumn: as_of_date
-		lineageTag: a0a18022-1b67-5fed-967a-a8bf4c158d8e
 
 	partition vw_project_financials = m
 		mode: import
@@ -142,3 +142,4 @@ table vw_project_financials
 					Typed = Table.TransformColumnTypes(Data, {{"project_id", Int64.Type}, {"project_code", type text}, {"project_name", type text}, {"department", type text}, {"owner_name", type text}, {"status", type text}, {"currency", type text}, {"initial_amount", Currency.Type}, {"current_budget", Currency.Type}, {"actual_spend", Currency.Type}, {"remaining_budget", Currency.Type}, {"utilization", type number}, {"forecast_to_complete", Currency.Type}, {"eac", Currency.Type}, {"projected_variance", Currency.Type}, {"has_no_forecast", type logical}, {"is_overspent", type logical}, {"is_near_budget", type logical}, {"is_projected_overrun", type logical}, {"as_of_date", type date}})
 				in
 					Typed
+
