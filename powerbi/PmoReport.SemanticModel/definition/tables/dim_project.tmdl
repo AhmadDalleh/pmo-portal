@@ -3,62 +3,62 @@ table dim_project
 
 	column project_id
 		dataType: int64
-		formatString: 0
 		isHidden
+		formatString: 0
+		lineageTag: 79fb9e22-7574-50a3-b68c-fdba01656cb1
 		summarizeBy: none
 		sourceColumn: project_id
-		lineageTag: 79fb9e22-7574-50a3-b68c-fdba01656cb1
 
 	column project_code
 		dataType: string
+		lineageTag: 27c1b074-cdc6-5972-a9e1-d0febfaf083b
 		summarizeBy: none
 		sourceColumn: project_code
-		lineageTag: 27c1b074-cdc6-5972-a9e1-d0febfaf083b
 
 	column project_name
 		dataType: string
+		lineageTag: 68f1abff-c9fb-523d-90b6-07a2692884c8
 		summarizeBy: none
 		sourceColumn: project_name
-		lineageTag: 68f1abff-c9fb-523d-90b6-07a2692884c8
 
 	column status
 		dataType: string
+		lineageTag: 914d3331-dc08-541b-aafd-70a3ba82ad43
 		summarizeBy: none
 		sourceColumn: status
-		lineageTag: 914d3331-dc08-541b-aafd-70a3ba82ad43
 
 	column department
 		dataType: string
+		lineageTag: 0d8f20d4-d72c-5a76-b444-fdddd4b2dc55
 		summarizeBy: none
 		sourceColumn: department
-		lineageTag: 0d8f20d4-d72c-5a76-b444-fdddd4b2dc55
 
 	column owner_name
 		dataType: string
+		lineageTag: cc467032-3328-58bb-9458-d027d16f85b1
 		summarizeBy: none
 		sourceColumn: owner_name
-		lineageTag: cc467032-3328-58bb-9458-d027d16f85b1
 
 	column start_date
 		dataType: dateTime
 		formatString: yyyy-mm-dd
+		lineageTag: 206c3d0e-c67b-5f3d-b1d8-ed2417386209
 		summarizeBy: none
 		sourceColumn: start_date
-		lineageTag: 206c3d0e-c67b-5f3d-b1d8-ed2417386209
 
 	column planned_end_date
 		dataType: dateTime
 		formatString: yyyy-mm-dd
+		lineageTag: c88cbe0b-4258-52d1-85df-b1c66a4f46c3
 		summarizeBy: none
 		sourceColumn: planned_end_date
-		lineageTag: c88cbe0b-4258-52d1-85df-b1c66a4f46c3
 
 	column actual_end_date
 		dataType: dateTime
 		formatString: yyyy-mm-dd
+		lineageTag: 2b7f23a0-44aa-5caf-b74b-42cd87768639
 		summarizeBy: none
 		sourceColumn: actual_end_date
-		lineageTag: 2b7f23a0-44aa-5caf-b74b-42cd87768639
 
 	partition dim_project = m
 		mode: import
@@ -69,3 +69,4 @@ table dim_project
 					Typed = Table.TransformColumnTypes(Data, {{"project_id", Int64.Type}, {"project_code", type text}, {"project_name", type text}, {"status", type text}, {"department", type text}, {"owner_name", type text}, {"start_date", type date}, {"planned_end_date", type date}, {"actual_end_date", type date}})
 				in
 					Typed
+

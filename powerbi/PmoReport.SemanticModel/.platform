@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "PmoReport"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ca9a3e6b-d84a-411a-8750-bd10771dddf6"
+  }
+}

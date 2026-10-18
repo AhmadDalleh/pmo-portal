@@ -41,7 +41,7 @@ table _Measures
 		formatString: "AED "#,0
 		lineageTag: 8220060e-6e4d-5546-a1b1-d4a41058358a
 
-	measure 'EAC' = [Actual Spend] + [Forecast To Complete]
+	measure EAC = [Actual Spend] + [Forecast To Complete]
 		formatString: "AED "#,0
 		lineageTag: 3f132bb2-718d-5e2f-a208-6a092e4003ab
 
@@ -64,10 +64,11 @@ table _Measures
 	column Value
 		dataType: string
 		isHidden
+		lineageTag: 7eee81cc-9be7-5889-b7f6-4cf8aad0a619
 		summarizeBy: none
 		sourceColumn: [Value]
-		lineageTag: 7eee81cc-9be7-5889-b7f6-4cf8aad0a619
 
 	partition _Measures = calculated
 		mode: import
 		source = DATATABLE ( "Value", STRING, { { "" } } )
+

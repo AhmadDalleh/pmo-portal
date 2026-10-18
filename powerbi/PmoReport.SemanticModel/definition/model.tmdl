@@ -2,6 +2,14 @@ model Model
 	culture: en-US
 	defaultPowerBIDataSourceVersion: powerBI_V3
 	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["dim_date","dim_project","vw_project_financials","vw_task_facts","vw_milestone_facts","vw_risk_facts","vw_cost_facts","vw_forecast_facts","ServerName","DatabaseName"]
+
+annotation PBI_ProTooling = ["DevMode"]
 
 ref table _Measures
 ref table dim_date
@@ -12,3 +20,4 @@ ref table vw_milestone_facts
 ref table vw_risk_facts
 ref table vw_cost_facts
 ref table vw_forecast_facts
+
