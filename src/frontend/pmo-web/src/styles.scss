@@ -1,0 +1,33 @@
+@use '@angular/material' as mat;
+
+html {
+  color-scheme: light;
+  @include mat.theme((
+    color: (
+      theme-type: light,
+      primary: mat.$red-palette,
+      tertiary: mat.$azure-palette,
+    ),
+    typography: Roboto,
+    density: -1,
+  ));
+}
+
+html, body { height: 100%; margin: 0; }
+body { background: var(--mat-sys-surface); color: var(--mat-sys-on-surface); font-family: Roboto, 'Helvetica Neue', sans-serif; }
+
+h1 { font-size: 22px; font-weight: 600; margin: 0 0 12px; }
+h2 { font-size: 17px; font-weight: 600; margin: 16px 0 8px; }
+.page { padding: 16px; max-width: 1400px; margin: 0 auto; box-sizing: border-box; }
+.row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.grow { flex: 1 1 0; }
+.muted { color: var(--mat-sys-on-surface-variant); }
+.end { text-align: right; }
+.full { width: 100%; }
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0 12px; }
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; }
+.panel { border: 1px solid var(--mat-sys-outline-variant); border-radius: 12px; padding: 12px 14px; background: var(--mat-sys-surface-container-lowest); }
+a { color: var(--mat-sys-primary); }
+.pos { color: #14532d; }
+.neg { color: #b3261e; }
+@media (max-width: 700px) { .page { padding: 10px; } }
