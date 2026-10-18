@@ -1,0 +1,25 @@
+# Build output
+bin/
+obj/
+*.user
+.vs/
+.vscode/
+.idea/
+
+# Secrets and local config
+.env
+appsettings.*.local.json
+
+# Logs
+logs/
+*.log
+
+# Test output
+TestResults/
+coverage*/
+
+# Frontend
+node_modules/
+dist/
+.angular/
+.env

@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/backend/">
+    <Project Path="src/backend/Pmo.Api/Pmo.Api.csproj" />
+    <Project Path="src/backend/Pmo.Application/Pmo.Application.csproj" />
+    <Project Path="src/backend/Pmo.Domain/Pmo.Domain.csproj" />
+    <Project Path="src/backend/Pmo.Infrastructure/Pmo.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Pmo.IntegrationTests/Pmo.IntegrationTests.csproj" />
+    <Project Path="tests/Pmo.UnitTests/Pmo.UnitTests.csproj" />
+  </Folder>
+</Solution>
