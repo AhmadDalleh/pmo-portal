@@ -52,7 +52,7 @@ Legend: DONE / PARTIAL / MISSING / MANUAL (only you can do it). Effort: S under 
 | 3.4 Mitigations explained (SQLi, tokens, cookies, CORS) | DONE | `docs/security-notes.md` | - | - |
 | 3.5 Logging and correlation id | DONE | Serilog, `CorrelationIdMiddleware`, id in ProblemDetails and audit rows | - | - |
 | 3.5 Concurrency and double-submit | DONE | `Update_WithStaleVersion_*` (xmin), `CreateDraft_SameIdempotencyKeyTwice_*` | - | - |
-| 3.5 At least five automated checks + manual checklist | DONE | 241 tests; `docs/manual-test-checklist.md` | - | - |
+| 3.5 At least five automated checks + manual checklist | DONE | 246 tests (51 unit + 195 integration); `docs/manual-test-checklist.md` | - | - |
 | 3.5 Git history, setup, `.env.example`, import | DONE | 14 conventional commits, README quick start, `scripts/import-data.*` | - | - |
 | 3.5 Docker Compose | PARTIAL | `docker-compose.yml` has only `db`; no api/web images (README says so). Optional | Claude | M |
 | Frontend README | DONE (session E) | `src/frontend/pmo-web/README.md` rewritten (run, structure, conventions) | - | - |
@@ -124,7 +124,7 @@ Legend: DONE / PARTIAL / MISSING / MANUAL (only you can do it). Effort: S under 
 | E Dashboard integrity | DONE (auto) / MANUAL | `DashboardTests` | You | S |
 | F Analytics agreement | PARTIAL | SQL and web agree (tested); Power BI column in `docs/reconciliation.md` | You | S |
 | G Automation / VBA | PARTIAL | automation DONE; Access missing | You | M |
-| H Engineering quality | DONE | 241 tests, error log with correlation id | - | - |
+| H Engineering quality | DONE | 246 tests (51 unit + 195 integration), error log with correlation id | - | - |
 
 ## §11 Submission checklist
 | Item | Status | Evidence or gap | Owner | Effort |
@@ -136,7 +136,7 @@ Legend: DONE / PARTIAL / MISSING / MANUAL (only you can do it). Effort: S under 
 | Access `.accdb` | MISSING | optional | You | M |
 | Automation evidence | PARTIAL | code and tests exist; no saved run-evidence file (screenshot, log excerpt) | You | S |
 | Architecture and security notes | DONE (session E) | `docs/architecture.md` (diagram, layers, request flow, decisions) and `docs/security-notes.md` | - | - |
-| 6-8 slide deck | MISSING | no slides in repo | You (Claude drafts outline and speaker notes) | M |
+| 6-8 slide deck | DONE (session F), review needed | `docs/presentation/PMO_Portal_Management_Presentation.pptx`: 8 slides with speaker notes; slide 8 and slide 7 notes have a presenter line to update (Power BI / Access status, what you validated) | You (review, adjust) | S |
 
 ## Specific items you asked about
 
