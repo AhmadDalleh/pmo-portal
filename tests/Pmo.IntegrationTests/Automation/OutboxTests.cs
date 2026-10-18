@@ -79,7 +79,7 @@ public class OutboxTests(PmoApiFactory factory)
         var key = "test-bogus:" + Guid.NewGuid().ToString("N");
         await using var db = factory.CreateDbContext();
         await Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.ExecuteSqlAsync(db.Database,
-            $"INSERT INTO outbox_messages (type, payload, dedup_key, status, occurred_at, available_at, attempts) VALUES ('Bogus', '{{}}', {key}, 'pending', now(), now(), 0)");
+            $"INSERT INTO outbox_messages (type, payload, dedup_key, status, occurred_at, available_at, attempts) VALUES ('Bogus', '{{}}', {key}, 'pending', now(), now() - interval '1 minute', 0)");   // clearly due: the database clock may run a few ms ahead of the host clock the worker uses
         var id = await factory.ScalarAsync<long>("SELECT id FROM outbox_messages WHERE dedup_key = @k", ("k", key));
 
         await RunWorkerOnceAsync();
