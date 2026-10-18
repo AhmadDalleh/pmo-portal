@@ -1,4 +1,6 @@
 using System.Net.Http.Json;
+using Pmo.Application.Features.ChangeRequests.Commands;
+using Pmo.Application.Features.ChangeRequests.Dtos;
 using Pmo.Application.Features.Finance.Commands;
 using Pmo.Application.Features.Finance.Dtos;
 using Pmo.Application.Features.Milestones.Dtos;
@@ -80,4 +82,24 @@ public static class ApiTestHelpers
 
     public static async Task<FinanceSummaryDto> FinanceAsync(this HttpClient client, int projectId, string asOf = "")
         => (await client.GetFromJsonAsync<FinanceSummaryDto>($"/api/projects/{projectId}/finance/summary{asOf}"))!;
+
+    // ---- change requests ----
+
+    public static async Task<ChangeRequestDto> CreateChangeRequestAsync(this HttpClient member, int projectId, string type = "scope", decimal? cost = 5_000m)
+    {
+        var response = await member.PostAsJsonAsync($"/api/projects/{projectId}/change-requests",
+            new CreateChangeRequestCommand("Helper change request", "Needed for the helper project", type, cost, 5));
+        response.StatusCode.ShouldBe(System.Net.HttpStatusCode.Created, await response.Content.ReadAsStringAsync());
+        return (await response.Content.ReadFromJsonAsync<ChangeRequestDto>())!;
+    }
+
+    public static async Task<ChangeRequestDto> SubmitChangeRequestAsync(this HttpClient requester, ChangeRequestDto cr)
+    {
+        var response = await requester.PostAsJsonAsync($"/api/change-requests/{cr.Id}/submit", new SubmitChangeRequestCommand(cr.Version));
+        response.StatusCode.ShouldBe(System.Net.HttpStatusCode.OK, await response.Content.ReadAsStringAsync());
+        return (await response.Content.ReadFromJsonAsync<ChangeRequestDto>())!;
+    }
+
+    public static Task<HttpResponseMessage> DecideChangeRequestAsync(this HttpClient reviewer, ChangeRequestDto cr, string decision, string reason = "Because") =>
+        reviewer.PostAsJsonAsync($"/api/approvals/change-requests/{cr.Id}/decision", new DecideChangeRequestCommand(decision, reason, cr.Version));
 }

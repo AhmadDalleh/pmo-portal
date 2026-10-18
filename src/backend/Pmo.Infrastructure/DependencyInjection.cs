@@ -6,11 +6,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Npgsql;
 using Pmo.Application.Common.Abstractions;
+using Pmo.Application.Features.Admin;
 using Pmo.Application.Features.Finance;
 using Pmo.Application.Features.Projects;
 using Pmo.Application.Features.Snapshots;
 using Pmo.Infrastructure.Analytics;
 using Pmo.Infrastructure.Identity;
+using Pmo.Infrastructure.Outbox;
 using Pmo.Infrastructure.Persistence;
 
 namespace Pmo.Infrastructure;
@@ -39,6 +41,21 @@ public static class DependencyInjection
 
         services.AddScoped<IDatabaseHealthCheck, DatabaseHealthCheck>();
         services.AddScoped<IUserDirectory, UserDirectory>();
+        services.AddScoped<IUserAdmin, UserAdminService>();
+
+        // Background work. Both can be switched off in config (the integration tests do, and call the runner directly).
+        services.AddScoped<NotificationBuilder>();
+        services.AddScoped<OutboxBatchRunner>();
+        if (configuration.GetValue("Outbox:Enabled", true))
+        {
+            services.AddHostedService<OutboxProcessor>();
+        }
+
+        if (configuration.GetValue("Automation:DailySnapshotEnabled", true))
+        {
+            services.AddHostedService<DailySnapshotJob>();
+        }
+
         return services;
     }
 

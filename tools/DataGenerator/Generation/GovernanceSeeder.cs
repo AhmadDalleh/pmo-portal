@@ -108,13 +108,22 @@ public static class GovernanceSeeder
         _ => "Returned: please add effort estimate and update the impact."
     };
 
+    /// <summary>The same action names the API writes: created, submitted, withdrawn, decided.</summary>
+    private static string ActionFor(ChangeRequestHistory row) => row.ToStatus switch
+    {
+        ChangeRequestStatus.Draft => "change_request.created",
+        ChangeRequestStatus.Submitted => "change_request.submitted",
+        ChangeRequestStatus.Withdrawn => "change_request.withdrawn",
+        _ => "change_request.decided"
+    };
+
     private static AuditEvent AuditFor(SeedData data, ChangeRequestHistory row)
     {
         var projectId = data.ChangeRequests.Single(c => c.Id == row.ChangeRequestId).ProjectId;
         return new AuditEvent
         {
             OccurredAt = row.OccurredAt, ActorId = row.ActorId, ProjectId = projectId, EntityType = "ChangeRequest",
-            EntityId = row.ChangeRequestId.ToString(), Action = $"change_request.{row.ToStatus}", CorrelationId = row.CorrelationId,
+            EntityId = row.ChangeRequestId.ToString(), Action = ActionFor(row), CorrelationId = row.CorrelationId,
             Data = JsonSerializer.Serialize(new { from = row.FromStatus, to = row.ToStatus, reason = row.Reason })
         };
     }

@@ -66,3 +66,25 @@ Task sort keys: `due, title, status, priority, progress, weight`. Task `indicato
 | POST | `/finance/budget-revisions/{id}/decision` `{decision: approved or rejected, reason, version}` | ADM | 200 | 403 `self_approval_forbidden`, 409 `invalid_transition` |
 | GET / PUT | `/projects/{id}/forecasts` (PUT = whole grid, upsert) | read: any (scope); write: PM + manages | 200 | 400 `forecast_month_not_future` / `duplicate_forecast_cell` |
 | GET / POST / PUT | `/finance/cost-categories` (writes ADM) | any / ADM | 200 / 201 | 409 `duplicate_category` |
+
+## Change requests, approvals, risks, notifications, admin (slice 6)
+| Method | Route | Who | Success | Errors |
+|---|---|---|---|---|
+| GET | `/projects/{id}/change-requests?status&page&pageSize` | any (scope) | 200 paged | 404 |
+| POST | `/projects/{id}/change-requests` | any project member (or ADM) | 201 | 400, 404 |
+| GET | `/change-requests/{id}` | any (scope) | 200 | 404 |
+| PUT | `/change-requests/{id}` | requester, draft/returned only | 200 | 403 `only_requester`, 409 `not_editable` / `concurrency_conflict` |
+| POST | `/change-requests/{id}/submit` `{version}` | requester | 200 | 409 `invalid_transition` |
+| POST | `/change-requests/{id}/withdraw` `{reason?, version}` | requester | 200 | 409 `invalid_transition` |
+| GET | `/change-requests/{id}/history` | any (scope) | 200 | 404 |
+| GET | `/approvals/change-requests?status=submitted&projectId&page` | PM / ADM | 200 paged | 403 (contributor) |
+| POST | `/approvals/change-requests/{id}/decision` `{decision: approve or reject or return, reason, version}` | PM managing the project / ADM | 200 | 403 (contributor, `self_approval_forbidden`, not managing), 404, 409 |
+| GET | `/risks?highExposure&status=open or closed or all&projectId&probability&impact&page` | any (scope) | 200 paged | 400 |
+| GET / POST | `/projects/{id}/risks` | read: any (scope); write: PM + manages | 200 / 201 | 400 (mitigation required, owner not member), 403 |
+| PUT | `/risks/{id}` | PM + manages project | 200 | 409 |
+| GET | `/notifications?unread&page&pageSize` · `/notifications/unread-count` | any (own) | 200 | |
+| POST | `/notifications/{id}/read` | recipient | 200 | 404 (not yours) |
+| GET | `/admin/users` · PUT `/admin/users/{id}/role` `{role}` · PUT `/admin/users/{id}/status` `{isActive}` | ADM | 200 | 409 `cannot_change_own_role` / `user_owns_projects` / `cannot_deactivate_self` |
+| GET | `/admin/audit-events?entityType&action&actorId&projectId&from&to&page` | ADM | 200 paged | |
+| GET | `/admin/automation/runs` · `/admin/automation/outbox?status` | ADM | 200 paged | |
+| POST | `/admin/automation/outbox/{id}/retry` | ADM | 200 | 409 `not_failed` |

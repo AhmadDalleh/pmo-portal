@@ -48,6 +48,8 @@ public class PmoApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
         builder.UseSetting("ConnectionStrings:Default", _postgres.GetConnectionString());
         builder.UseSetting("Jwt:Key", "integration-test-signing-key-at-least-32-characters-long");
         builder.UseSetting("RateLimiting:LoginPerMinute", "100000");
+        builder.UseSetting("Outbox:Enabled", "false");                  // tests run the batch runner themselves
+        builder.UseSetting("Automation:DailySnapshotEnabled", "false");
     }
 
     /// <summary>Signs in through the real endpoint and returns a client that sends the access token.</summary>
@@ -82,7 +84,8 @@ public class PmoApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
             command.Parameters.AddWithValue(name, value);
         }
 
-        return (T)(await command.ExecuteScalarAsync())!;
+        var result = await command.ExecuteScalarAsync();
+        return result is null or DBNull ? default! : (T)result;
     }
 
     public new async Task DisposeAsync()

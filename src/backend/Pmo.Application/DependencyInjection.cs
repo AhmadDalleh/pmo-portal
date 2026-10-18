@@ -2,6 +2,11 @@ using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Pmo.Application.Common;
 using Pmo.Application.Common.Abstractions;
+using Pmo.Application.Features.Admin;
+using Pmo.Application.Features.ChangeRequests;
+using Pmo.Application.Features.ChangeRequests.Commands;
+using Pmo.Application.Features.ChangeRequests.Queries;
+using Pmo.Application.Features.ChangeRequests.Validators;
 using Pmo.Application.Features.Finance;
 using Pmo.Application.Features.Finance.Commands;
 using Pmo.Application.Features.Finance.Queries;
@@ -13,7 +18,12 @@ using Pmo.Application.Features.Projects.Queries;
 using Pmo.Application.Features.Milestones;
 using Pmo.Application.Features.Milestones.Commands;
 using Pmo.Application.Features.Milestones.Validators;
+using Pmo.Application.Features.Notifications;
 using Pmo.Application.Features.Projects.Validators;
+using Pmo.Application.Features.Risks;
+using Pmo.Application.Features.Risks.Commands;
+using Pmo.Application.Features.Risks.Queries;
+using Pmo.Application.Features.Risks.Validators;
 using Pmo.Application.Features.Snapshots;
 using Pmo.Application.Features.Tasks;
 using Pmo.Application.Features.Tasks.Commands;
@@ -44,6 +54,10 @@ public static class DependencyInjection
         services.AddScoped<BudgetRevisionService>();
         services.AddScoped<ForecastService>();
         services.AddScoped<CostCategoryService>();
+        services.AddScoped<ChangeRequestService>();
+        services.AddScoped<RiskService>();
+        services.AddScoped<NotificationService>();
+        services.AddScoped<AdminService>();
 
         services.AddScoped<IValidator<CreateProjectCommand>, CreateProjectValidator>();
         services.AddScoped<IValidator<UpdateProjectCommand>, UpdateProjectValidator>();
@@ -66,6 +80,13 @@ public static class DependencyInjection
         services.AddScoped<IValidator<SaveForecastsCommand>, SaveForecastsValidator>();
         services.AddScoped<IValidator<CreateCategoryCommand>, CreateCategoryValidator>();
         services.AddScoped<IValidator<UpdateCategoryCommand>, UpdateCategoryValidator>();
+        services.AddScoped<IValidator<CreateChangeRequestCommand>, CreateChangeRequestValidator>();
+        services.AddScoped<IValidator<UpdateChangeRequestCommand>, UpdateChangeRequestValidator>();
+        services.AddScoped<IValidator<DecideChangeRequestCommand>, DecideChangeRequestValidator>();
+        services.AddScoped<IValidator<ChangeRequestSearchQuery>, ChangeRequestSearchValidator>();
+        services.AddScoped<IValidator<CreateRiskCommand>, CreateRiskValidator>();
+        services.AddScoped<IValidator<UpdateRiskCommand>, UpdateRiskValidator>();
+        services.AddScoped<IValidator<RiskSearchQuery>, RiskSearchValidator>();
         return services;
     }
 }

@@ -40,9 +40,9 @@ public static class SeedGenerator
             data.AuditEvents.Add(new AuditEvent
             {
                 OccurredAt = revision.DecidedAt!.Value, ActorId = revision.DecidedById, ProjectId = revision.ProjectId,
-                EntityType = "BudgetRevision", EntityId = revision.Id.ToString(), Action = $"budget_revision.{revision.Status}",
+                EntityType = "BudgetRevision", EntityId = revision.Id.ToString(), Action = "budget_revision.decided",
                 CorrelationId = $"seed-rev-{revision.Id}",
-                Data = JsonSerializer.Serialize(new { amount = revision.Amount, reason = revision.DecisionReason })
+                Data = JsonSerializer.Serialize(new { decision = revision.Status, reason = revision.DecisionReason, amount = revision.Amount })
             });
         }
     }

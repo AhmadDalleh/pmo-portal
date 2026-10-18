@@ -21,4 +21,21 @@ public class Risk : AuditableEntity
     public DateOnly? DueDate { get; set; }
     public string Status { get; set; } = RiskStatus.Open;
     public DateTimeOffset? ClosedAt { get; set; }
+
+    /// <summary>Exposure score at which a risk needs a mitigation plan and counts as "high exposure" (database-design.md section 3.2).</summary>
+    public const int HighExposureThreshold = 15;
+
+    public bool IsHighExposure => Probability * Impact >= HighExposureThreshold;
+
+    /// <summary>Closing stamps closed_at (the CHECK needs both together); reopening clears it.</summary>
+    public void ApplyStatus(string status, DateTimeOffset now)
+    {
+        if (!RiskStatus.All.Contains(status))
+        {
+            throw new DomainRuleException("invalid_status", $"Unknown risk status '{status}'.", isValidation: true);
+        }
+
+        Status = status;
+        ClosedAt = status == RiskStatus.Closed ? ClosedAt ?? now : null;
+    }
 }

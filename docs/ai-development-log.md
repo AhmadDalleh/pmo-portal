@@ -77,3 +77,12 @@ Required by assignment §9: ≥ 4 meaningful iterations, ≥ 1 case where AI was
 - **AI result / decision:** the brief gives no date for the reversal. A reversal dated today would not net out at the 2026-09-30 reporting date, so the demo "reverse, spend drops" would silently fail. Chose "same date as the original" and documented it (`CostTransaction.Reverse`). The threshold rule compares utilisation before and after the posting at the reporting date and relies on the UNIQUE dedup key to stay once-only.
 - **Accepted:** all code passed its 46 new tests on the first run.
 - **Was the AI wrong?** No wrong code this slice; the point worth defending in the interview is the reversal-date trade-off above.
+
+---
+
+### #5 — Seed data used different audit action names than the API (E3, A5, 2026-10-18)
+- **Problem:** the audit-log test filtered `action=change_request.decided` and found nothing.
+- **AI result / what was wrong:** the data generator (slice 2) wrote actions like `change_request.approved`, while the service (slice 6) writes `change_request.decided`, so the audit screen would have shown two vocabularies for the same thing. Same for `budget_revision.*`.
+- **Fix:** one mapping in `GovernanceSeeder.ActionFor` and `SeedGenerator.AddRevisionAudit` using the API names; CSVs regenerated.
+- **Test evidence:** `AdminTests.AuditLog_FiltersByActionAndProject_NewestFirst`.
+- **Was the AI wrong?** Yes: an inconsistency between two slices written at different times; found by a test that reads seed data through the real endpoint. Lesson for the log: seed data and services must share constants, not copies of strings.
