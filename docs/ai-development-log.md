@@ -86,3 +86,12 @@ Required by assignment §9: ≥ 4 meaningful iterations, ≥ 1 case where AI was
 - **Fix:** one mapping in `GovernanceSeeder.ActionFor` and `SeedGenerator.AddRevisionAudit` using the API names; CSVs regenerated.
 - **Test evidence:** `AdminTests.AuditLog_FiltersByActionAndProject_NewestFirst`.
 - **Was the AI wrong?** Yes: an inconsistency between two slices written at different times; found by a test that reads seed data through the real endpoint. Lesson for the log: seed data and services must share constants, not copies of strings.
+
+---
+
+### #6 — Integer division in the portfolio progress KPI (C6, G1, 2026-10-18)
+- **Problem:** the dashboard KPI "portfolio progress" returned `63` where the independent query gave `63.2416...`.
+- **AI result / what was wrong:** `SUM(weight * progress_pct)` is an integer in PostgreSQL, and I divided two integers in `kpis.sql`. The earlier project query had the `::numeric` cast; this new copy did not. A rounding-looking difference, but it would have made the dashboard disagree with the project pages and Power BI.
+- **Fix:** `tk.weighted_progress::numeric / NULLIF(tk.total_weight, 0)`.
+- **Test evidence:** `DashboardTests.Kpis_Unfiltered_MatchIndependentSqlOverTheWholeDatabase` compares every KPI with a raw SQL statement written separately.
+- **Was the AI wrong?** Yes. Found because the test computes the expected value with its own SQL, not with the code under test.

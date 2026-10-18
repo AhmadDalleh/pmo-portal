@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Pmo.Application.Common;
 using Pmo.Application.Common.Abstractions;
 using Pmo.Application.Features.Admin;
+using Pmo.Application.Features.Dashboard;
 using Pmo.Application.Features.ChangeRequests;
 using Pmo.Application.Features.ChangeRequests.Commands;
 using Pmo.Application.Features.ChangeRequests.Queries;
@@ -58,6 +59,7 @@ public static class DependencyInjection
         services.AddScoped<RiskService>();
         services.AddScoped<NotificationService>();
         services.AddScoped<AdminService>();
+        services.AddScoped<DashboardService>();
 
         services.AddScoped<IValidator<CreateProjectCommand>, CreateProjectValidator>();
         services.AddScoped<IValidator<UpdateProjectCommand>, UpdateProjectValidator>();
@@ -87,6 +89,7 @@ public static class DependencyInjection
         services.AddScoped<IValidator<CreateRiskCommand>, CreateRiskValidator>();
         services.AddScoped<IValidator<UpdateRiskCommand>, UpdateRiskValidator>();
         services.AddScoped<IValidator<RiskSearchQuery>, RiskSearchValidator>();
+        services.AddScoped<IValidator<DashboardFilter>, DashboardFilterValidator>();
         return services;
     }
 }

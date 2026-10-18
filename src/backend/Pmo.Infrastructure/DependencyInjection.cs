@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Npgsql;
 using Pmo.Application.Common.Abstractions;
 using Pmo.Application.Features.Admin;
+using Pmo.Application.Features.Dashboard;
 using Pmo.Application.Features.Finance;
 using Pmo.Application.Features.Projects;
 using Pmo.Application.Features.Snapshots;
@@ -38,6 +39,7 @@ public static class DependencyInjection
         services.AddScoped<IProjectReadModel, ProjectReadModel>();
         services.AddScoped<ISnapshotRunner, SnapshotRunner>();
         services.AddScoped<IFinanceReadModel, FinanceReadModel>();
+        services.AddScoped<IDashboardReadModel, DashboardReadModel>();
 
         services.AddScoped<IDatabaseHealthCheck, DatabaseHealthCheck>();
         services.AddScoped<IUserDirectory, UserDirectory>();

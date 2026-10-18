@@ -88,3 +88,20 @@ Task sort keys: `due, title, status, priority, progress, weight`. Task `indicato
 | GET | `/admin/audit-events?entityType&action&actorId&projectId&from&to&page` | ADM | 200 paged | |
 | GET | `/admin/automation/runs` · `/admin/automation/outbox?status` | ADM | 200 paged | |
 | POST | `/admin/automation/outbox/{id}/retry` | ADM | 200 | 409 `not_failed` |
+
+## Dashboard (slice 7, backend)
+Any signed-in user; numbers are limited to the caller's projects. Every route takes the same filters:
+`departmentId, projectId, managerId (project owner), status, from, to (projects whose start..planned end overlaps), asOf`; `categoryId` only affects
+monthly trend, by-category and the cost drill-down (the KPI cards and budget-vs-actual ignore it).
+| Method | Route | Returns |
+|---|---|---|
+| GET | `/dashboard/kpis` | delivery, risk/governance and finance cards (G1) |
+| GET | `/dashboard/finance/by-project` | budget, actual, forecast, EAC per project (visual 1) |
+| GET | `/dashboard/finance/monthly` | monthly actual + forecast (visual 2) |
+| GET | `/dashboard/finance/by-category` | spend and forecast per category (visual 3) |
+| GET | `/dashboard/delivery/overdue-by-owner` | overdue open tasks per assignee (visual 4) |
+| GET | `/dashboard/risks/matrix` | 25 cells with open counts (visual 5) |
+| GET | `/dashboard/delivery/project-health` | per project progress, overdue, risks, utilisation, badge (visual 6) |
+| GET | `/dashboard/drilldown/costs?page&pageSize` | posted transactions behind actual spend + `totalAmount` (equals the KPI) |
+| GET | `/dashboard/drilldown/tasks?overdue=true&assigneeId&unassigned&page&pageSize` | open tasks behind "overdue tasks" |
+| GET | `/dashboard/drilldown/risks?probability&impact&highExposure&page&pageSize` | open risks behind a matrix cell / the risk KPI |
