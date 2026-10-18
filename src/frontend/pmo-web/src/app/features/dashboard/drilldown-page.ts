@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, signal } from '@angular/core';
+import { Component, effect, inject, input, signal, untracked } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -78,7 +78,8 @@ export class DrilldownPage {
     { key: 'score', header: 'Score (P x I)', align: 'end', value: (r) => `${r.score} (${r.probability} x ${r.impact})` }, { key: 'status', header: 'Status', badge: (r) => r.status },
   ];
 
-  constructor() { effect(() => { this.kind(); void this.load(); }); }
+  /** Tracks only `kind`; page changes call load() themselves, so load() must not be tracked. */
+  constructor() { effect(() => { this.kind(); untracked(() => void this.load()); }); }
 
   protected title(): string {
     return ({ costs: 'Posted costs behind actual spend', tasks: 'Overdue tasks', risks: 'Open risks and issues' } as Record<string, string>)[this.kind()] ?? 'Records';

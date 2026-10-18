@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, output, signal } from '@angular/core';
+import { Component, effect, inject, input, output, signal, untracked } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -75,7 +75,7 @@ export class ProjectCosts {
     { key: 'status', header: 'Status', badge: (c) => c.status },
   ];
 
-  constructor() { effect(() => { if (this.projectId()) void this.load(); }); }
+  constructor() { effect(() => { if (this.projectId()) untracked(() => void this.load()); }); }
 
   protected setFilter(v: string | undefined): void { this.filter.set(v); this.page.set(1); void this.load(); }
   protected onPage(p: { page: number; pageSize: number }): void { this.page.set(p.page); this.pageSize.set(p.pageSize); void this.load(); }

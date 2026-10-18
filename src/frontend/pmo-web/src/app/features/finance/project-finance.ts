@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, effect, inject, signal, untracked } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { firstValueFrom } from 'rxjs';
 import { FinanceApi } from '../../core/api/finance.api';
@@ -65,7 +65,7 @@ export class ProjectFinance {
   protected readonly status = signal<LoadStatus>('idle');
   protected readonly error = signal<ApiError | null>(null);
 
-  constructor() { effect(() => { if (this.ctx.id()) void this.load(); }); }
+  constructor() { effect(() => { if (this.ctx.id()) untracked(() => void this.load()); }); }
 
   /** Called on first view and after every posting, reversal, revision or forecast save: always a fresh read from the server. */
   protected async load(): Promise<void> {

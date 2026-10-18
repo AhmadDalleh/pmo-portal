@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, output, signal } from '@angular/core';
+import { Component, effect, inject, input, output, signal, untracked } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -65,7 +65,7 @@ export class ForecastGrid {
   private readonly values = signal<Record<string, number>>({});
   private loadedKeys = new Set<string>();   // cells that exist on the server, so a cleared cell is saved as 0 instead of being forgotten
 
-  constructor() { effect(() => { if (this.projectId()) void this.load(); }); }
+  constructor() { effect(() => { if (this.projectId()) untracked(() => void this.load()); }); }
 
   private key(categoryId: number, month: string): string { return `${categoryId}|${month}`; }
   protected cell(categoryId: number, month: string): number { return this.values()[this.key(categoryId, month)] ?? 0; }

@@ -30,4 +30,4 @@ Start the API first (`dotnet run --project src/backend/Pmo.Api`, see the root RE
 - Charts: ngx-echarts with tree-shaken registration (`core/charts.ts`); chart options are built from API data in `features/dashboard/chart-options.ts`.
 
 ## Tests
-There are no frontend unit tests; behaviour is covered by the API integration tests (`tests/Pmo.IntegrationTests`) and the manual checklist `docs/manual-test-checklist.md`.
+`npm test` runs Vitest (jsdom) through `ng test`. The specs guard against reload loops: `project-shell.spec.ts` (one `GET /api/projects/{id}` per route id) and `project-costs.spec.ts` (one request per page change). Rule for every `effect()` that loads data: track only the input signal and call `load()` inside `untracked()`, otherwise a signal that `load()` reads and later writes re-triggers the effect. Everything else is covered by the API integration tests (`tests/Pmo.IntegrationTests`) and the manual checklist `docs/manual-test-checklist.md`.

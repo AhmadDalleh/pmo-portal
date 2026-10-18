@@ -1,4 +1,4 @@
-import { Component, effect, inject, input } from '@angular/core';
+import { Component, effect, inject, input, untracked } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { MatTabsModule } from '@angular/material/tabs';
 import { AsyncState } from '../../shared/async-state/async-state';
@@ -47,6 +47,9 @@ export class ProjectShell {
   ];
 
   constructor() {
-    effect(() => void this.ctx.load(Number(this.id())));
+    effect(() => {
+      const id = Number(this.id());   // the only signal this effect tracks
+      untracked(() => void this.ctx.load(id));   // load() reads and writes `project`: it must not be tracked
+    });
   }
 }
