@@ -1,5 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="FluentValidation" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Pmo.Domain\Pmo.Domain.csproj" />
   </ItemGroup>
 </Project>

@@ -98,6 +98,8 @@ Concurrency: mutable tables expose PostgreSQL's system column **`xmin`** mapped 
 
 Roles (Identity role tables): `Contributor`, `ProjectManager`, `Administrator`. One role per demo user.
 
+Refresh tokens (story A1) live in Identity's own **`user_tokens`** table (`login_provider = 'PmoPortal'`, `name = 'refresh:<tokenId>'`, `value = '<sha256 of secret>|<expiry unix seconds>'`); the browser cookie holds `userId.tokenId.secret`. Each refresh deletes the used row and inserts a new one (rotation), so no extra table is needed.
+
 **projects**
 | Column | Type | Null | Constraint / note |
 |---|---|---|---|

@@ -44,3 +44,19 @@ Required by assignment §9: ≥ 4 meaningful iterations, ≥ 1 case where AI was
 - **Revised implementation:** `tools/DataGenerator/GeneratorCli.cs`.
 - **Test evidence:** `dotnet test` → 24 passed (8 earlier + 16 new).
 - **Was the AI wrong?** Yes (a design slip, caught by the compiler): a console tool that other projects reference must not use top-level statements.
+
+---
+
+### #2 — Claims mapping, EF projection and fallback policy (A1–A3, B1–B6, 2026-10-18)
+- **Requirement / problem:** JWT sign-in with `sub`/`role` claims, scoped project API, `[AllowAnonymous]` only where needed.
+- **Prompt (summary):** "Slice 3: auth (Identity + JWT + refresh cookie), project scope, projects, members, lookups."
+- **AI result:** first test run: 45 of 79 tests failed with 500s.
+- **Accepted:** overall layering (`IPmoDbContext`, `IProjectScope`, read model with embedded SQL).
+- **Rejected / changed, and why:**
+  1. The JWT handler silently renames claims (`sub` becomes a long URI), so `CurrentUser` found no `sub` ("Request is not authenticated"). Fix: `MapInboundClaims = false` in `AddAuth`.
+  2. `UserDirectory` filtered a `select new UserSummary(...)` projection; EF Core cannot translate `Where` over a constructor projection. Fix: join, filter on the joined columns, project last.
+  3. The "must be signed in" fallback policy also protected `/api/health` and made unknown routes return 401 instead of 404. Fix: `[AllowAnonymous]` on health; the unknown-route test now signs in first.
+  4. Integration tests that create projects broke count assertions of other tests. Fix: read-only tests filter on `PRJ-` codes.
+- **Revised implementation:** `Infrastructure/DependencyInjection.cs`, `Identity/UserDirectory.cs`, `HealthController.cs`, project tests.
+- **Test evidence:** `dotnet test` → 8 unit + 71 integration passing.
+- **Was the AI wrong?** Yes, three times (framework defaults I assumed). Found by reading the server log with the correlation id; each fix has a test that would fail without it.

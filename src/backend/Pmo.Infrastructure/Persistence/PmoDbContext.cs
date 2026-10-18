@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Pmo.Application.Common.Abstractions;
 using Pmo.Domain.Automation;
 using Pmo.Domain.Delivery;
 using Pmo.Domain.Finance;
@@ -15,7 +16,7 @@ namespace Pmo.Infrastructure.Persistence;
 /// The single EF Core context. Inherits the Identity tables (users, roles, ...) and adds the business tables.
 /// Table/column names become snake_case via UseSnakeCaseNamingConvention (see DependencyInjection).
 /// </summary>
-public class PmoDbContext : IdentityDbContext<AppUser, AppRole, int>
+public class PmoDbContext : IdentityDbContext<AppUser, AppRole, int>, IPmoDbContext
 {
     public PmoDbContext(DbContextOptions<PmoDbContext> options) : base(options)
     {

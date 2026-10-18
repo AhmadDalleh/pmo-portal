@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pmo.Application.Common.Abstractions;
 
 namespace Pmo.Api.Controllers;
 
 [ApiController]
+[AllowAnonymous]   // uptime monitors and Docker health checks have no token
 [Route("api/health")]
 public class HealthController : ControllerBase
 {

@@ -6,6 +6,12 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
     <PackageReference Include="EFCore.NamingConventions" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
+    <PackageReference Include="Dapper" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- KPI SQL ships inside the assembly: one place, versioned with the code (CLAUDE.md: Analytics/*.sql). -->
+    <EmbeddedResource Include="Analytics\*.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Pmo.Application\Pmo.Application.csproj" />

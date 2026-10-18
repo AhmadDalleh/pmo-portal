@@ -58,7 +58,8 @@ powerbi/  access/                  reporting deliverables
 cp .env.example .env                                      # once; then edit the password
 docker compose up -d db                                   # database only
 dotnet tool restore                                       # installs the pinned dotnet-ef
-dotnet user-secrets set "ConnectionStrings:Default" "Host=localhost;Port=5432;Database=pmo;Username=pmo;Password=<from .env>" --project src/backend/Pmo.Api
+dotnet user-secrets set "ConnectionStrings:Default" "Host=localhost;Port=5433;Database=pmo;Username=pmo;Password=<from .env>" --project src/backend/Pmo.Api
+dotnet user-secrets set "Jwt:Key" "<random string, 32+ characters>" --project src/backend/Pmo.Api
 dotnet build
 dotnet test                                               # needs Docker for Testcontainers
 dotnet ef migrations add <Name> -p src/backend/Pmo.Infrastructure -s src/backend/Pmo.Api -o Persistence/Migrations

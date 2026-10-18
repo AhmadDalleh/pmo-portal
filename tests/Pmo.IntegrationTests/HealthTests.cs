@@ -41,9 +41,9 @@ public class HealthTests
     }
 
     [Fact]
-    public async Task UnknownRoute_Returns404ProblemDetailsWithCorrelationId()
+    public async Task UnknownRoute_WhenSignedIn_Returns404ProblemDetailsWithCorrelationId()
     {
-        var client = _factory.CreateClient();
+        var client = await _factory.CreateClientForAsync(DemoUsers.Admin1);   // anonymous callers get 401 first (fallback policy)
 
         var response = await client.GetAsync("/api/does-not-exist");
 
