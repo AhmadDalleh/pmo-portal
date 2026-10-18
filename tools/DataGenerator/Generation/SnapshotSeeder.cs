@@ -15,7 +15,7 @@ public static class SnapshotSeeder
         {
             var limit = SeedClock.Min(SeedClock.AsOf, project.ActualEndDate ?? SeedClock.AsOf);
             var finalProgress = SeedMath.Progress(data, project.Id) ?? 0m;
-            var tasks = data.Tasks.Where(t => t.ProjectId == project.Id).ToList();
+            var tasks = data.Tasks.Where(t => t.ProjectId == project.Id && t.Status != ProjectTaskStatus.Cancelled).ToList();
             var doneNow = tasks.Count(t => t.Status == ProjectTaskStatus.Done);
             var span = Math.Max(1, limit.DayNumber - project.StartDate.DayNumber);
 

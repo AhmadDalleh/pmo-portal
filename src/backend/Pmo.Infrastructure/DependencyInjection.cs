@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Npgsql;
 using Pmo.Application.Common.Abstractions;
 using Pmo.Application.Features.Projects;
+using Pmo.Application.Features.Snapshots;
 using Pmo.Infrastructure.Analytics;
 using Pmo.Infrastructure.Identity;
 using Pmo.Infrastructure.Persistence;
@@ -32,6 +33,7 @@ public static class DependencyInjection
         SqlMapper.AddTypeHandler(new DateOnlyTypeHandler());
         services.AddSingleton(NpgsqlDataSource.Create(connectionString));
         services.AddScoped<IProjectReadModel, ProjectReadModel>();
+        services.AddScoped<ISnapshotRunner, SnapshotRunner>();
 
         services.AddScoped<IDatabaseHealthCheck, DatabaseHealthCheck>();
         services.AddScoped<IUserDirectory, UserDirectory>();

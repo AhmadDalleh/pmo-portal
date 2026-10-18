@@ -28,3 +28,21 @@ Out-of-scope projects return 404, visible-but-not-allowed returns 403.
 | GET | `/lookups/departments` · `/lookups/users?role=` · `/lookups/cost-categories` | any | 200 | |
 
 Sort keys: `code, name, department, owner, status, start, end, progress, utilization`; `dir` = `asc|desc`; default page 1, size 20 (max 100).
+
+## Tasks, milestones, progress (slice 4)
+| Method | Route | Who | Success | Errors |
+|---|---|---|---|---|
+| GET | `/projects/{id}/tasks?status&assigneeId&priority&overdue&sort&dir&page&pageSize&asOf` | any (scope) | 200 paged | 400, 404 |
+| GET | `/me/tasks?status&page&pageSize&asOf` | any | 200 paged | status null = open tasks, `all` = everything |
+| GET | `/tasks/{id}` | any (scope) | 200 | 404 |
+| POST | `/projects/{id}/tasks` | PM + manages project | 201 | 400 `assignee_not_member`/`milestone_not_in_project`/validation, 403, 404 |
+| PUT | `/tasks/{id}` | PM + manages project | 200 | 400, 403, 404, 409 `concurrency_conflict` |
+| PATCH | `/tasks/{id}/progress` `{progressPct,status,version}` | manager of project, or the task assignee | 200 | 403 (not yours / contributor cancelling), 404, 409 |
+| GET | `/projects/{id}/milestones?asOf` | any (scope) | 200 | 404 |
+| POST | `/projects/{id}/milestones` | PM + manages project | 201 | 400, 403 |
+| PUT | `/milestones/{id}` | PM + manages project | 200 | 409 |
+| POST | `/milestones/{id}/complete` `{version}` | PM + manages project | 200 | 409 `already_completed` |
+| GET | `/projects/{id}/progress-history` | any (scope) | 200 | 404 |
+| POST | `/admin/snapshots/run?date` | ADM | 200 | 403; idempotent upsert |
+
+Task sort keys: `due, title, status, priority, progress, weight`. Task `indicator`: `overdue`, `due_today`, `due_soon` (within 14 days) or empty.

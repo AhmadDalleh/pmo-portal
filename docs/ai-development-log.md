@@ -60,3 +60,11 @@ Required by assignment §9: ≥ 4 meaningful iterations, ≥ 1 case where AI was
 - **Revised implementation:** `Infrastructure/DependencyInjection.cs`, `Identity/UserDirectory.cs`, `HealthController.cs`, project tests.
 - **Test evidence:** `dotnet test` → 8 unit + 71 integration passing.
 - **Was the AI wrong?** Yes, three times (framework defaults I assumed). Found by reading the server log with the correlation id; each fix has a test that would fail without it.
+
+---
+
+### #3 — Smallint cast and over-strict test assumptions (C1–C7, 2026-10-18)
+- **Problem:** four of 100 new tests failed on first run.
+- **AI result / what was wrong:** (1) tests read `smallint` columns as `int` (PostgreSQL returns Int16); (2) I assumed the on-hold project has exactly one overdue milestone, but the seed rule leaves every past-due milestone of an on-hold project pending; (3) the history test assumed the newest snapshot is the seed one, but the "run snapshot" test adds a later one.
+- **Fix:** read as `short`; assert the specific milestone is among the overdue ones; look up the 2026-09-30 snapshot explicitly. No production code changed, the assumptions in the tests were wrong.
+- **Was the AI wrong?** Yes, in the tests (not the code). Found from the failure message in one run.
