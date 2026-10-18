@@ -12,6 +12,7 @@ dotnet tool restore
 dotnet user-secrets set "ConnectionStrings:Default" "Host=localhost;Port=5433;Database=pmo;Username=pmo;Password=<POSTGRES_PASSWORD>" --project src/backend/Pmo.Api
 dotnet user-secrets set "Jwt:Key" "<32+ random characters>" --project src/backend/Pmo.Api
 ./scripts/import-data.sh                   # (Windows: .\scripts\import-data.ps1) migrate + load data/csv + create demo users
+./scripts/reset-db.sh                      # (Windows: .\scripts\reset-db.ps1 -Yes) wipe and reload the seed; -Hard also rebuilds the schema
 dotnet run --project src/backend/Pmo.Api   # API on http://localhost:5217, Swagger at /swagger
 cd src/frontend/pmo-web && npm install && npm start   # http://localhost:4200 (proxies /api to the API)
 ```
@@ -35,7 +36,7 @@ Password for every account = the value of `DEMO_USER_PASSWORD` in your `.env`.
 `Domain` (entities and rules, no framework) → `Application` (feature services, validators, DTOs) → `Infrastructure` (EF Core, Dapper KPI SQL, Identity/JWT, outbox worker) → `Api` (thin controllers, policies, middleware). Authorization = role policy on the route + project scope check in the service (out of scope 404, not allowed 403). Details per slice: `docs/slices/`.
 
 ## Documents
-`docs/api-routes.md` · `docs/slices/*.md` (what, flow, decisions, demo, interview questions) · `docs/manual-test-checklist.md` · `docs/security-notes.md` · `docs/ai-development-log.md` · `docs/database-design.md`.
+`docs/architecture.md` · `docs/presentation/` (8-slide deck) · `docs/data-dictionary.md` · `docs/api-routes.md` (+ `docs/api/openapi.json`) · `docs/slices/*.md` (what, flow, decisions, demo, interview questions) · `docs/manual-test-checklist.md` · `docs/security-notes.md` · `docs/ai-development-log.md` · `docs/database-design.md` · `sql/reports/` · `powerbi/` · `docs/reconciliation.md` · `docs/automation-evidence.md`.
 
 ## Status
-Built: A1-A6, B1-B6, C1-C7, D1-D2, E1-E5, F1-F11 (no UI for category admin), G1-G6, H1-H3 (no admin UI), I1-I3. Not built: risk matrix page outside the dashboard (D3 is the dashboard visual), milestone roadmap visual, admin UI screens, Power BI (J), slides (K9), Access (L), Docker images for api/web.
+Built: A1-A6, B1-B6, C1-C7, D1-D2, E1-E5, F1-F11, G1-G6, H1-H3, I1-I3, plus the admin screens (users, audit log, automation, cost categories) and the reporting views, report queries and Power BI model notes (inputs for J). Not built: risk matrix page outside the dashboard (D3 is the dashboard visual), milestone roadmap visual, the Power BI `.pbix` (built in Power BI Desktop), Access (L), Docker images for api/web. Submission checklist with owners: `docs/submission-status.md`.

@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, effect, inject, signal, untracked } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -51,7 +51,7 @@ export class ProjectMilestones {
     { key: 'completed', header: 'Completed', value: (m) => m.completedAt },
   ];
 
-  constructor() { effect(() => { if (this.ctx.id()) void this.load(); }); }
+  constructor() { effect(() => { if (this.ctx.id()) untracked(() => void this.load()); }); }
 
   protected async load(): Promise<void> {
     this.status.set('loading');

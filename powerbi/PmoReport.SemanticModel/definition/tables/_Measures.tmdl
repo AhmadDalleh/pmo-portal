@@ -1,0 +1,73 @@
+table _Measures
+	lineageTag: 560d0ef8-eae8-5bec-9c18-6a961f926e0f
+
+	measure 'Overdue Tasks' = CALCULATE ( COUNTROWS ( vw_task_facts ), vw_task_facts[is_overdue] = TRUE () )
+		formatString: 0
+		lineageTag: 734b2aed-e96e-5f62-8105-88eeda74aa39
+
+	measure 'Blocked Tasks' = CALCULATE ( COUNTROWS ( vw_task_facts ), vw_task_facts[is_blocked] = TRUE () )
+		formatString: 0
+		lineageTag: 7770b05d-c1b6-584a-9f7a-6ec2f74de6c1
+
+	measure 'Task Progress %' = DIVIDE ( SUM ( vw_task_facts[weighted_progress] ), SUM ( vw_task_facts[weight_for_progress] ) ) / 100
+		formatString: 0.0%
+		lineageTag: 2e2984d2-f5df-52c5-9659-84638cd71fba
+
+	measure 'Milestones Due Soon' = CALCULATE ( COUNTROWS ( vw_milestone_facts ), vw_milestone_facts[is_due_soon] = TRUE () )
+		formatString: 0
+		lineageTag: 0673d18c-e521-52ea-8eb8-594214dc955a
+
+	measure 'Open High Exposure Risks' = CALCULATE ( COUNTROWS ( vw_risk_facts ), vw_risk_facts[is_open_high_exposure] = TRUE () )
+		formatString: 0
+		lineageTag: 0203048d-4e29-5a47-b81e-6e3c586a9246
+
+	measure 'Approved Budget' = SUM ( vw_project_financials[current_budget] )
+		formatString: "AED "#,0
+		lineageTag: 072f141a-aeb9-5598-b4fc-b0ec9e1c0bf3
+
+	measure 'Actual Spend' = SUM ( vw_project_financials[actual_spend] )
+		formatString: "AED "#,0
+		lineageTag: 82dd449d-363e-59dc-8021-401a805ffcc9
+
+	measure 'Remaining Budget' = [Approved Budget] - [Actual Spend]
+		formatString: "AED "#,0
+		lineageTag: 243869e7-88f8-5804-959d-dff64b006ccb
+
+	measure 'Budget Utilization %' = DIVIDE ( [Actual Spend], [Approved Budget] )
+		formatString: 0.0%
+		lineageTag: e0c18f95-0aca-5e19-a2eb-7203d0361338
+
+	measure 'Forecast To Complete' = SUM ( vw_project_financials[forecast_to_complete] )
+		formatString: "AED "#,0
+		lineageTag: 8220060e-6e4d-5546-a1b1-d4a41058358a
+
+	measure 'EAC' = [Actual Spend] + [Forecast To Complete]
+		formatString: "AED "#,0
+		lineageTag: 3f132bb2-718d-5e2f-a208-6a092e4003ab
+
+	measure 'Projected Variance' = [Approved Budget] - [EAC]
+		formatString: "AED "#,0;-"AED "#,0
+		lineageTag: 91044538-93fd-58b4-9302-9a2720b89a17
+
+	measure 'Projected Overrun Projects' = CALCULATE ( COUNTROWS ( vw_project_financials ), vw_project_financials[is_projected_overrun] = TRUE () )
+		formatString: 0
+		lineageTag: ba8a0108-95be-5a4e-b0e2-a4c35668459a
+
+	measure 'Spend (Transactions)' = SUM ( vw_cost_facts[amount] )
+		formatString: "AED "#,0
+		lineageTag: 1aa73f92-fe13-52cb-b274-6f7357bed9d2
+
+	measure 'Forecast (Future Months)' = CALCULATE ( SUM ( vw_forecast_facts[amount] ), vw_forecast_facts[is_future] = TRUE () )
+		formatString: "AED "#,0
+		lineageTag: c6ca1ea9-270b-59d4-bbd4-991a29f005d1
+
+	column Value
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: [Value]
+		lineageTag: 7eee81cc-9be7-5889-b7f6-4cf8aad0a619
+
+	partition _Measures = calculated
+		mode: import
+		source = DATATABLE ( "Value", STRING, { { "" } } )

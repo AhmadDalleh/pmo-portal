@@ -1,0 +1,97 @@
+table vw_cost_facts
+	lineageTag: 9d4b169c-8a17-56b3-a874-77aee9f2d333
+
+	column cost_id
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: cost_id
+		lineageTag: ac641050-67ce-5172-aa0f-c574b9100c8b
+
+	column project_id
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: project_id
+		lineageTag: 70eec2f5-5c05-5be3-be6d-eab68a853045
+
+	column project_code
+		dataType: string
+		summarizeBy: none
+		sourceColumn: project_code
+		lineageTag: 2f7d7882-f214-5b53-8209-eed37cc9a54a
+
+	column department
+		dataType: string
+		summarizeBy: none
+		sourceColumn: department
+		lineageTag: 028e6161-3665-582b-b2e3-3491065dcf2d
+
+	column category_code
+		dataType: string
+		summarizeBy: none
+		sourceColumn: category_code
+		lineageTag: af587087-2870-53c2-9028-81236e59b050
+
+	column category_name
+		dataType: string
+		summarizeBy: none
+		sourceColumn: category_name
+		lineageTag: 8c5e08c0-8a42-5ca9-b624-daa7211426ca
+
+	column txn_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		summarizeBy: none
+		sourceColumn: txn_date
+		lineageTag: c590bc15-7d5a-54be-a379-ed95d91737fa
+
+	column month_start
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		summarizeBy: none
+		sourceColumn: month_start
+		lineageTag: c4371b1d-0504-5127-92dd-1a700881e974
+
+	column amount
+		dataType: decimal
+		formatString: #,0.00
+		summarizeBy: none
+		sourceColumn: amount
+		lineageTag: 9b8c81bd-f2a1-5b49-bb38-51aa26806413
+
+	column description
+		dataType: string
+		summarizeBy: none
+		sourceColumn: description
+		lineageTag: eeb104fa-ce94-5487-924e-1945a9f21618
+
+	column vendor_name
+		dataType: string
+		summarizeBy: none
+		sourceColumn: vendor_name
+		lineageTag: 9a33b7c6-06e2-57e4-8a45-a449c36bf166
+
+	column reference_no
+		dataType: string
+		summarizeBy: none
+		sourceColumn: reference_no
+		lineageTag: 733ff397-3032-5800-ac19-2baf9f18586a
+
+	column is_reversal
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: is_reversal
+		lineageTag: df4e1b9e-3a0f-5743-b38d-08958b2586d9
+
+	partition vw_cost_facts = m
+		mode: import
+		source =
+				let
+					Source = PostgreSQL.Database(ServerName, DatabaseName),
+					Data = Source{[Schema = "public", Item = "vw_cost_facts"]}[Data],
+					Typed = Table.TransformColumnTypes(Data, {{"cost_id", Int64.Type}, {"project_id", Int64.Type}, {"project_code", type text}, {"department", type text}, {"category_code", type text}, {"category_name", type text}, {"txn_date", type date}, {"month_start", type date}, {"amount", Currency.Type}, {"description", type text}, {"vendor_name", type text}, {"reference_no", type text}, {"is_reversal", type logical}})
+				in
+					Typed

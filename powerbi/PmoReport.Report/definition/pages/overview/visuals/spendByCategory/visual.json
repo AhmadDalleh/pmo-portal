@@ -1,0 +1,77 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "name": "spendByCategory",
+  "position": {
+    "x": 20,
+    "y": 484,
+    "width": 300,
+    "height": 226,
+    "z": 0
+  },
+  "visual": {
+    "visualType": "donutChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vw_cost_facts"
+                    }
+                  },
+                  "Property": "category_name"
+                }
+              },
+              "queryRef": "vw_cost_facts.category_name",
+              "nativeQueryRef": "category_name"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Spend (Transactions)"
+                }
+              },
+              "queryRef": "_Measures.Spend (Transactions)",
+              "nativeQueryRef": "Spend (Transactions)"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Spend by category (AED)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "name": "highRisks",
+  "position": {
+    "x": 644,
+    "y": 484,
+    "width": 616,
+    "height": 226,
+    "z": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vw_risk_facts"
+                    }
+                  },
+                  "Property": "project_code"
+                }
+              },
+              "queryRef": "vw_risk_facts.project_code",
+              "nativeQueryRef": "project_code"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vw_risk_facts"
+                    }
+                  },
+                  "Property": "title"
+                }
+              },
+              "queryRef": "vw_risk_facts.title",
+              "nativeQueryRef": "title"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vw_risk_facts"
+                    }
+                  },
+                  "Property": "owner_name"
+                }
+              },
+              "queryRef": "vw_risk_facts.owner_name",
+              "nativeQueryRef": "owner_name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vw_risk_facts"
+                    }
+                  },
+                  "Property": "score"
+                }
+              },
+              "queryRef": "vw_risk_facts.score",
+              "nativeQueryRef": "score"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Open High Exposure Risks"
+                }
+              },
+              "queryRef": "_Measures.Open High Exposure Risks",
+              "nativeQueryRef": "Open High Exposure Risks"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Open high-exposure risks'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

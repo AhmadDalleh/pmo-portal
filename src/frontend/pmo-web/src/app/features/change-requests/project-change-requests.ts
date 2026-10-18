@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, effect, inject, signal, untracked } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -47,7 +47,7 @@ export class ProjectChangeRequests {
     { key: 'submitted', header: 'Submitted', value: (c) => c.submittedAt?.slice(0, 10) },
   ];
 
-  constructor() { effect(() => { if (this.ctx.id()) void this.load(); }); }
+  constructor() { effect(() => { if (this.ctx.id()) untracked(() => void this.load()); }); }
 
   protected onPage(p: { page: number; pageSize: number }): void { this.page.set(p.page); this.pageSize.set(p.pageSize); void this.load(); }
   protected open(c: ChangeRequest): void { void this.router.navigate(['/change-requests', c.id]); }

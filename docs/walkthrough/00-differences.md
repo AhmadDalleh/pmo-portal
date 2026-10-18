@@ -16,8 +16,8 @@ Read this before the interview: an interviewer who reads `docs/` and then your c
 | 8 | G3: category filter "disables itself" on non-finance visuals with a tooltip. | The filter stays enabled; each chart card says "Category filter does not apply" / "Respects the category filter", and the server ignores `categoryId` for KPIs, budget-vs-actual, overdue, matrix, health. | `DashboardApi`, `chart-card` notes | Same effect, different UI. |
 | 9 | G2 visual 7 (milestone roadmap) optional. | **Not built.** | – | Optional per brief. |
 | 10 | D3: risk matrix page with clickable cells. | The matrix is a **dashboard visual** only; cells drill down to `/dashboard/drilldown/risks`. There is no separate matrix page. The API `GET /api/risks` exists but no UI screen lists risks across projects. | `dashboard-page.ts` | Say "D2 is API-only; D3 is on the dashboard". |
-| 11 | F2: admin manages cost categories. | API only (`/api/finance/cost-categories`); **no UI**. | `FinanceController` | Use Swagger. |
-| 12 | A4, A5, H3: admin screens. | API only; **no UI** (users, audit log, automation monitor). | `AdminController` | Use Swagger. |
+| 11 | F2: admin manages cost categories. | Done in slice 09: `/admin/categories` (create, rename, deactivate). | `admin-categories.ts` | Resolved. |
+| 12 | A4, A5, H3: admin screens. | Done in slice 09: `/admin/users`, `/admin/audit`, `/admin/automation`; users are filtered and paged in the browser because the API returns all users. | `features/admin/` | Resolved. |
 | 13 | `CLAUDE.md` frontend: shared `form-field` wrappers. | Not built; forms use Angular Material fields directly with `fieldError()` / `applyServerErrors()` helpers. | `shared/notify.ts` | Simplification. |
 | 14 | F7 does not say which date a reversal carries. | The reversal has the **same `txn_date` as the original**, so they net out in every period (a reversal dated today would not net at asOf 2026-09-30). | `CostTransaction.Reverse` | Decision documented in slice 05. |
 | 15 | F3: "A reduction that would make current budget negative → 400". | Checked against **initial + all approved revisions** (any date) + the new amount, i.e. conservative, not "budget at the effective date". | `BudgetRevisionService.RequestAsync` | Mention if asked. |
@@ -31,9 +31,9 @@ Read this before the interview: an interviewer who reads `docs/` and then your c
 
 | Doc | Status |
 |---|---|
-| `database-design.md` §9 reporting views and `dim_date` | **Not created** (no migration). Power BI (J) was out of scope. `sql/reports/` does not exist. |
-| `docs/data-dictionary.md` (I4) | Not written; §3 of the design doc is the dictionary. |
-| `docs/kpi-reconciliation.md` (J5) | Not written (needs Power BI). |
+| `database-design.md` §9 reporting views and `dim_date` | Created by migration `ReportingViews`; `sql/reports/` exists. `dim_date` is a view, not a table. |
+| `docs/data-dictionary.md` (I4) | Written: per-CSV column list generated from the schema. |
+| `docs/kpi-reconciliation.md` (J5) | Written as `docs/reconciliation.md`; SQL and web columns filled, Power BI column pending the report. |
 | `README` / `CLAUDE.md` "docker compose up" for api + web | Compose runs **only the database**; no Dockerfiles for api/web. |
 | `CLAUDE.md` Commands | Updated during the build (port 5433, `Jwt:Key`). Everything listed there works. |
 | Design doc §3 refresh tokens | Updated: refresh tokens live in Identity `user_tokens` (no extra table). |

@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, signal } from '@angular/core';
+import { Component, effect, inject, input, signal, untracked } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -86,7 +86,7 @@ export class ChangeRequestPage {
   protected readonly status = signal<LoadStatus>('idle');
   protected readonly error = signal<ApiError | null>(null);
 
-  constructor() { effect(() => { this.id(); void this.load(); }); }
+  constructor() { effect(() => { this.id(); untracked(() => void this.load()); }); }
 
   protected isRequester(): boolean { return this.cr()?.requestedById === this.auth.user()?.id; }
 

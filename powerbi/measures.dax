@@ -1,0 +1,54 @@
+// Power BI measures for the PMO report. Every measure mirrors a definition in docs/database-design.md section 6,
+// and the reporting date is fixed inside the SQL views (reporting_settings.as_of_date = 2026-09-30), so these are snapshot values.
+// Paste each measure into a table named "_Measures" (Modeling > New measure).
+
+// ---------- Delivery ----------
+Overdue Tasks =
+CALCULATE ( COUNTROWS ( vw_task_facts ), vw_task_facts[is_overdue] = TRUE () )
+
+Blocked Tasks =
+CALCULATE ( COUNTROWS ( vw_task_facts ), vw_task_facts[is_blocked] = TRUE () )
+
+// Task-weighted progress, cancelled tasks carry weight 0 in the view. Result is 0-100.
+Task Progress % =
+DIVIDE ( SUM ( vw_task_facts[weighted_progress] ), SUM ( vw_task_facts[weight_for_progress] ) ) / 100
+
+Milestones Due Soon =
+CALCULATE ( COUNTROWS ( vw_milestone_facts ), vw_milestone_facts[is_due_soon] = TRUE () )
+
+Open High Exposure Risks =
+CALCULATE ( COUNTROWS ( vw_risk_facts ), vw_risk_facts[is_open_high_exposure] = TRUE () )
+
+// ---------- Finance (project grain: vw_project_financials) ----------
+Approved Budget =
+SUM ( vw_project_financials[current_budget] )
+
+Actual Spend =
+SUM ( vw_project_financials[actual_spend] )
+
+Remaining Budget =
+[Approved Budget] - [Actual Spend]
+
+// Zero budget: DIVIDE returns BLANK instead of an error, same as NULLIF in SQL.
+Budget Utilization % =
+DIVIDE ( [Actual Spend], [Approved Budget] )
+
+Forecast To Complete =
+SUM ( vw_project_financials[forecast_to_complete] )
+
+EAC =
+[Actual Spend] + [Forecast To Complete]
+
+// Negative means projected overrun.
+Projected Variance =
+[Approved Budget] - [EAC]
+
+Projected Overrun Projects =
+CALCULATE ( COUNTROWS ( vw_project_financials ), vw_project_financials[is_projected_overrun] = TRUE () )
+
+// ---------- Finance (transaction grain: use for category and month visuals, not for KPI cards) ----------
+Spend (Transactions) =
+SUM ( vw_cost_facts[amount] )
+
+Forecast (Future Months) =
+CALCULATE ( SUM ( vw_forecast_facts[amount] ), vw_forecast_facts[is_future] = TRUE () )

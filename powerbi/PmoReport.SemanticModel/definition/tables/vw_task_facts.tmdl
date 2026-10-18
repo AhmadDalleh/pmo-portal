@@ -1,0 +1,134 @@
+table vw_task_facts
+	lineageTag: b156ca11-fe3b-5ccf-863a-7f29f90cd6f3
+
+	column task_id
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: task_id
+		lineageTag: 1f337300-3ad8-529e-add2-40eb5cf48860
+
+	column project_id
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: project_id
+		lineageTag: c2f2a176-4603-52ee-94e6-e44823dd1248
+
+	column project_code
+		dataType: string
+		summarizeBy: none
+		sourceColumn: project_code
+		lineageTag: 61ec33d9-6d9d-595c-9477-a6d8a15ac456
+
+	column department
+		dataType: string
+		summarizeBy: none
+		sourceColumn: department
+		lineageTag: 8a812b5a-e7f5-5093-83c9-999b8ed15504
+
+	column title
+		dataType: string
+		summarizeBy: none
+		sourceColumn: title
+		lineageTag: 6dd6822c-27b3-502b-a95a-053fc874719d
+
+	column assignee
+		dataType: string
+		summarizeBy: none
+		sourceColumn: assignee
+		lineageTag: 47337729-7ee4-59d6-95c6-43b248f0538b
+
+	column status
+		dataType: string
+		summarizeBy: none
+		sourceColumn: status
+		lineageTag: e2dc3332-8a9d-51c0-b2e7-c0f0d900333a
+
+	column priority
+		dataType: string
+		summarizeBy: none
+		sourceColumn: priority
+		lineageTag: dbda22b3-1b3f-5a05-94b5-2c6701bcfec3
+
+	column start_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		summarizeBy: none
+		sourceColumn: start_date
+		lineageTag: b1314398-4cfe-53dd-bfbe-f5451726d649
+
+	column due_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		summarizeBy: none
+		sourceColumn: due_date
+		lineageTag: e20ee413-27f7-5935-a434-379a94ec651d
+
+	column weight
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: weight
+		lineageTag: c4ee3388-c93a-5082-95f4-362648e9096a
+
+	column progress_pct
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: progress_pct
+		lineageTag: 92059211-7aee-5a20-9a78-e4926d4b46df
+
+	column is_overdue
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: is_overdue
+		lineageTag: 0457d891-89ad-5975-a5af-91b124ce6d09
+
+	column is_due_today
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: is_due_today
+		lineageTag: e8cb868d-9ba7-5a92-84ad-c0d9ef69c12b
+
+	column is_blocked
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: is_blocked
+		lineageTag: cf81f16f-6789-5456-8faa-f4e9ddc2ac6d
+
+	column weight_for_progress
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: weight_for_progress
+		lineageTag: 666d7bb0-f0ab-51b4-870c-c9910250fe71
+
+	column weighted_progress
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: weighted_progress
+		lineageTag: 95dc639f-905e-5c1a-bdef-06c3a92eb5ee
+
+	column as_of_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		isHidden
+		summarizeBy: none
+		sourceColumn: as_of_date
+		lineageTag: 56ff2926-92c6-505b-bba2-17afbbed95f0
+
+	partition vw_task_facts = m
+		mode: import
+		source =
+				let
+					Source = PostgreSQL.Database(ServerName, DatabaseName),
+					Data = Source{[Schema = "public", Item = "vw_task_facts"]}[Data],
+					Typed = Table.TransformColumnTypes(Data, {{"task_id", Int64.Type}, {"project_id", Int64.Type}, {"project_code", type text}, {"department", type text}, {"title", type text}, {"assignee", type text}, {"status", type text}, {"priority", type text}, {"start_date", type date}, {"due_date", type date}, {"weight", Int64.Type}, {"progress_pct", Int64.Type}, {"is_overdue", type logical}, {"is_due_today", type logical}, {"is_blocked", type logical}, {"weight_for_progress", Int64.Type}, {"weighted_progress", Int64.Type}, {"as_of_date", type date}})
+				in
+					Typed

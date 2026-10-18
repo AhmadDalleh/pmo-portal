@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, effect, inject, signal, untracked } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -95,7 +95,7 @@ export class ProjectOverview {
   protected readonly historyError = signal<ApiError | null>(null);
 
   constructor() {
-    effect(() => { if (this.ctx.id()) { void this.load(); void this.loadHistory(); } });
+    effect(() => { if (this.ctx.id()) untracked(() => { void this.load(); void this.loadHistory(); }); });
   }
 
   protected async load(): Promise<void> {

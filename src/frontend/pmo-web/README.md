@@ -1,59 +1,33 @@
-# PmoWeb
+# PMO web (Angular 22)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.3.
+Browser client of the PMO Portfolio & Financial Control Portal. It holds no business data or KPI maths: every number comes from the API and is re-read after each change. Overall design: `docs/architecture.md`.
 
-## Development server
-
-To start a local development server, run:
-
+## Run
 ```bash
-ng serve
+npm install
+npm start          # http://localhost:4200, proxies /api to http://localhost:5217 (proxy.conf.json)
+npm run build      # production bundle in dist/pmo-web
 ```
+Start the API first (`dotnet run --project src/backend/Pmo.Api`, see the root README). Demo logins are in the root README.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Structure (`src/app`)
+| Folder | What lives there |
+|---|---|
+| `core/auth` | `AuthService` (access token kept in memory in a signal, session restored at startup from the HttpOnly refresh cookie), `authGuard`, `managerGuard`, `adminGuard` |
+| `core/http` | Functional interceptors: correlation id header, bearer token with one refresh-and-retry on 401, error mapping to `ApiError` (RFC 7807 fields) |
+| `core/api` | One service per backend resource (`projects.api.ts`, `tasks.api.ts`, `finance.api.ts`, `governance.api.ts`, `dashboard.api.ts`, `admin.api.ts`); the only place that builds URLs |
+| `core/models` | TypeScript types that mirror the API DTOs |
+| `shared` | Reusable pieces: `data-table` (sort, server paging, empty/loading/error, expandable detail row), `async-state`, `confirm-dialog`, `status-badge` (icon and text, not colour only), `kpi-card`, `chart-card`, `notify` (toasts and server field errors) |
+| `features/<area>` | Pages and dialogs: `auth`, `projects`, `tasks`, `finance`, `risks`, `change-requests`, `notifications`, `dashboard`, `admin` |
+| `app.routes.ts` | Lazy-loaded routes; guards only improve navigation, the server checks every call again |
 
-## Code scaffolding
+## Conventions
+- Standalone components, signals for state; a small store service per feature where several widgets share state (`dashboard-store.ts`).
+- After any create, update or transition the component reloads from the API; nothing patches totals locally.
+- Forms are reactive; client validation mirrors the server rules and server `errors` are placed under the matching field (`applyServerErrors`).
+- Consequential actions (post or reverse a cost, decide a change request, role change, retry) use `confirm-dialog`.
+- Dashboard filters live in the URL query string, so a view can be shared and survives reload.
+- Charts: ngx-echarts with tree-shaken registration (`core/charts.ts`); chart options are built from API data in `features/dashboard/chart-options.ts`.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Tests
+`npm test` runs Vitest (jsdom) through `ng test`. The specs guard against reload loops: `project-shell.spec.ts` (one `GET /api/projects/{id}` per route id) and `project-costs.spec.ts` (one request per page change). Rule for every `effect()` that loads data: track only the input signal and call `load()` inside `untracked()`, otherwise a signal that `load()` reads and later writes re-triggers the effect. Everything else is covered by the API integration tests (`tests/Pmo.IntegrationTests`) and the manual checklist `docs/manual-test-checklist.md`.

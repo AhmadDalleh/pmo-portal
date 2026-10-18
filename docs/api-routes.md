@@ -5,6 +5,9 @@ with `code` (stable business-rule id), `errors` (field → messages, validation 
 Policies: **PM** = Project Manager or Administrator (role policy only; the service then checks the project scope), **ADM** = Administrator.
 Out-of-scope projects return 404, visible-but-not-allowed returns 403.
 
+Machine-readable copy: `docs/api/openapi.json` (OpenAPI 3, exported from `/swagger/v1/swagger.json` of the running API in Development; 64 paths). Refresh it after route changes:
+`curl http://localhost:5217/swagger/v1/swagger.json -o docs/api/openapi.json`. Import it into Postman or Swagger UI to get a collection.
+
 ## Health and auth (slice 3)
 | Method | Route | Who | Success | Notes |
 |---|---|---|---|---|

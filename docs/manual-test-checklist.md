@@ -32,10 +32,11 @@ Setup: seed imported, API and web running, reporting date 2026-09-30. Each item 
 - Automated: `DashboardTests`.
 
 ## F. Analytics agreement (J5)
-- Power BI not built; SQL reconciliation is covered by `DashboardTests.Kpis_Unfiltered_MatchIndependentSqlOverTheWholeDatabase`.
+- SQL vs web: `DashboardTests.Kpis_Unfiltered_MatchIndependentSqlOverTheWholeDatabase` and `ReportingViewTests`. Power BI column: fill `docs/reconciliation.md` after building the report (`powerbi/README.md`).
 
 ## G. Automation (H1, H3)
-- [ ] As `admin1`: `GET /api/admin/automation/outbox?status=failed` shows the seeded failed alert; `POST .../retry` returns it to pending; the worker processes it.
+- [ ] As `admin1`: Admin > Automation shows the seeded failed alert (message 7); Retry (with confirm) returns it to pending; within about 10 s the worker processes it and a new run appears. API equivalent: `GET /api/admin/automation/outbox?status=failed`, `POST .../retry`. Before a repeat demo run `scripts/reset-db`. Evidence: `docs/automation-evidence.md`.
+- [ ] As `admin1`: Admin > Users: changing your own role shows the server refusal; Admin > Audit log: expand a row (correlation id and JSON); Admin > Cost categories: create, rename, deactivate.
 - Automated: `OutboxTests`.
 
 ## H. Engineering quality (K1-K3)

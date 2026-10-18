@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, output, signal } from '@angular/core';
+import { Component, effect, inject, input, output, signal, untracked } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -59,7 +59,7 @@ export class ProjectRevisions {
     { key: 'cr', header: 'Change request', value: (r) => r.changeRequestId },
   ];
 
-  constructor() { effect(() => { if (this.projectId()) void this.load(); }); }
+  constructor() { effect(() => { if (this.projectId()) untracked(() => void this.load()); }); }
 
   protected async load(): Promise<void> {
     this.status.set('loading');

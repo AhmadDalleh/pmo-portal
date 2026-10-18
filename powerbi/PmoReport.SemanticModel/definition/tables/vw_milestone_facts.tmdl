@@ -1,0 +1,86 @@
+table vw_milestone_facts
+	lineageTag: a5c2c539-f1bc-5b55-ba11-9bb3707bd80b
+
+	column milestone_id
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: milestone_id
+		lineageTag: e1e0bb22-7657-5c84-b64a-325f1b42346e
+
+	column project_id
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: project_id
+		lineageTag: e4fc6f9f-9200-50b6-b7e8-ea53465ab284
+
+	column project_code
+		dataType: string
+		summarizeBy: none
+		sourceColumn: project_code
+		lineageTag: dc009056-7984-5e1a-a387-7e31842fcd52
+
+	column department
+		dataType: string
+		summarizeBy: none
+		sourceColumn: department
+		lineageTag: 2a893643-834e-5ae6-bae9-9bcd4f5c0413
+
+	column name
+		dataType: string
+		summarizeBy: none
+		sourceColumn: name
+		lineageTag: 62f229b7-0de6-5e6a-845a-0eeaf61697ed
+
+	column status
+		dataType: string
+		summarizeBy: none
+		sourceColumn: status
+		lineageTag: 3b27cc35-aae6-5db1-84db-456f2403def6
+
+	column due_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		summarizeBy: none
+		sourceColumn: due_date
+		lineageTag: 76fcc170-bcba-5984-bb40-1cd88778f674
+
+	column completed_at
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		summarizeBy: none
+		sourceColumn: completed_at
+		lineageTag: 2dce7063-7fd5-5768-b504-cdf4da2cdcbd
+
+	column is_overdue
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: is_overdue
+		lineageTag: 23a2b2ed-01d5-5fc3-8ac0-ba00402948a8
+
+	column is_due_soon
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: is_due_soon
+		lineageTag: 48825263-c727-53c8-912e-df38cd691797
+
+	column as_of_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		isHidden
+		summarizeBy: none
+		sourceColumn: as_of_date
+		lineageTag: 1a44fe31-2a41-57b1-ba90-f4f8fe7e04a8
+
+	partition vw_milestone_facts = m
+		mode: import
+		source =
+				let
+					Source = PostgreSQL.Database(ServerName, DatabaseName),
+					Data = Source{[Schema = "public", Item = "vw_milestone_facts"]}[Data],
+					Typed = Table.TransformColumnTypes(Data, {{"milestone_id", Int64.Type}, {"project_id", Int64.Type}, {"project_code", type text}, {"department", type text}, {"name", type text}, {"status", type text}, {"due_date", type date}, {"completed_at", type date}, {"is_overdue", type logical}, {"is_due_soon", type logical}, {"as_of_date", type date}})
+				in
+					Typed

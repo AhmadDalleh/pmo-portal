@@ -1,0 +1,110 @@
+table vw_risk_facts
+	lineageTag: a7665137-c19c-563e-affc-4b03755e0b6b
+
+	column risk_id
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: risk_id
+		lineageTag: 577a9c44-40ed-54cb-bb20-b0faccb069c9
+
+	column project_id
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: project_id
+		lineageTag: 9ab99e44-466b-58c8-83e5-64a5bb71613c
+
+	column project_code
+		dataType: string
+		summarizeBy: none
+		sourceColumn: project_code
+		lineageTag: 64f79009-4984-52e1-a07b-e6d10706fd5b
+
+	column department
+		dataType: string
+		summarizeBy: none
+		sourceColumn: department
+		lineageTag: 7a83b74d-18a4-551f-b8c2-58835db6fef6
+
+	column type
+		dataType: string
+		summarizeBy: none
+		sourceColumn: type
+		lineageTag: 0fbedb8d-f0ba-57d7-9980-47f3afb7201e
+
+	column title
+		dataType: string
+		summarizeBy: none
+		sourceColumn: title
+		lineageTag: 9f670ba5-ae9a-57ad-89aa-a8e37102def3
+
+	column owner_name
+		dataType: string
+		summarizeBy: none
+		sourceColumn: owner_name
+		lineageTag: 8586c36c-52f8-5020-a17a-b81e430cee1d
+
+	column probability
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: probability
+		lineageTag: 4c7b7a03-3317-5ceb-9bf6-5fdc458b8406
+
+	column impact
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: impact
+		lineageTag: 3588d473-97a1-5940-a7bd-2a5832f6c4d5
+
+	column score
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: score
+		lineageTag: f70b7e66-2778-5270-918f-bcf25dbc4c96
+
+	column status
+		dataType: string
+		summarizeBy: none
+		sourceColumn: status
+		lineageTag: 45965919-4079-5abc-a7e6-b43b3e150963
+
+	column due_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		summarizeBy: none
+		sourceColumn: due_date
+		lineageTag: bad54510-e55d-53b7-ae06-393c0745936e
+
+	column is_open
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: is_open
+		lineageTag: 8eab3bd0-a1b6-5bf7-9259-f0791bef3c93
+
+	column is_high_exposure
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: is_high_exposure
+		lineageTag: dea20a34-a088-5032-adf2-9d2d71e809c0
+
+	column is_open_high_exposure
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: is_open_high_exposure
+		lineageTag: 0d047bcf-986e-540e-a78c-91d6eedca1f1
+
+	partition vw_risk_facts = m
+		mode: import
+		source =
+				let
+					Source = PostgreSQL.Database(ServerName, DatabaseName),
+					Data = Source{[Schema = "public", Item = "vw_risk_facts"]}[Data],
+					Typed = Table.TransformColumnTypes(Data, {{"risk_id", Int64.Type}, {"project_id", Int64.Type}, {"project_code", type text}, {"department", type text}, {"type", type text}, {"title", type text}, {"owner_name", type text}, {"probability", Int64.Type}, {"impact", Int64.Type}, {"score", Int64.Type}, {"status", type text}, {"due_date", type date}, {"is_open", type logical}, {"is_high_exposure", type logical}, {"is_open_high_exposure", type logical}})
+				in
+					Typed

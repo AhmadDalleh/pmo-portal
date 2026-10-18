@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal, untracked } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
@@ -70,7 +70,7 @@ export class App {
   constructor() {
     // The bell count is read from the server after every navigation (a mark-as-read or a new notification shows up at once).
     this.router.events.pipe(filter((e) => e instanceof NavigationEnd)).subscribe(() => void this.refreshUnread());
-    effect(() => { if (this.auth.isAuthenticated()) void this.refreshUnread(); });
+    effect(() => { if (this.auth.isAuthenticated()) untracked(() => void this.refreshUnread()); });
   }
 
   private async refreshUnread(): Promise<void> {
