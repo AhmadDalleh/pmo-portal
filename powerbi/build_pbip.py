@@ -178,9 +178,25 @@ def proj(field):
     return {"field": field, "queryRef": f"{entity}.{prop}", "nativeQueryRef": prop}
 
 
-def visual(name, vtype, x, y, w, h, roles, title=None):
+def lit(value):
+    return {"expr": {"Literal": {"Value": value}}}
+
+
+CARD_OBJECTS = {   # smaller value, full number (no "AED 12M" rounding), no second label under the title
+    "labels": [{"properties": {"fontSize": lit("18D"), "labelDisplayUnits": lit("1D")}}],
+    "categoryLabels": [{"properties": {"show": lit("false")}}],
+}
+SLICER_OBJECTS = {   # dropdown, so a 62 px high slicer is usable
+    "data": [{"properties": {"mode": lit("'Dropdown'")}}],
+    "header": [{"properties": {"show": lit("false")}}],
+}
+
+
+def visual(name, vtype, x, y, w, h, roles, title=None, objects=None):
     v = {"visualType": vtype, "query": {"queryState": {r: {"projections": [proj(f) for f in fields]} for r, fields in roles.items()}},
          "drillFilterOtherVisuals": True}
+    if objects:
+        v["objects"] = objects
     if title:
         v["visualContainerObjects"] = {"title": [{"properties": {
             "show": {"expr": {"Literal": {"Value": "true"}}},
@@ -214,12 +230,12 @@ def build_report():
     cards = ["Approved Budget", "Actual Spend", "Remaining Budget", "Budget Utilization %", "EAC",
              "Projected Variance", "Overdue Tasks", "Open High Exposure Risks", "Task Progress %", "Projected Overrun Projects"]
     for i, m in enumerate(cards):
-        visual(f"card{i + 1}", "card", 20 + (i % 5) * 248, 12 + (i // 5) * 74, 236, 66, {"Values": [meas(m)]}, m)
+        visual(f"card{i + 1}", "card", 20 + (i % 5) * 248, 12 + (i // 5) * 74, 236, 66, {"Values": [meas(m)]}, m, CARD_OBJECTS)
     # slicers
-    visual("slicerDept", "slicer", 20, 168, 200, 62, {"Values": [col("dim_project", "department")]}, "Department")
-    visual("slicerStatus", "slicer", 232, 168, 200, 62, {"Values": [col("dim_project", "status")]}, "Project status")
-    visual("slicerProject", "slicer", 444, 168, 200, 62, {"Values": [col("dim_project", "project_code")]}, "Project")
-    visual("slicerCategory", "slicer", 656, 168, 260, 62, {"Values": [col("vw_cost_facts", "category_name")]}, "Cost category (spend visuals only)")
+    visual("slicerDept", "slicer", 20, 168, 200, 62, {"Values": [col("dim_project", "department")]}, "Department", SLICER_OBJECTS)
+    visual("slicerStatus", "slicer", 232, 168, 200, 62, {"Values": [col("dim_project", "status")]}, "Project status", SLICER_OBJECTS)
+    visual("slicerProject", "slicer", 444, 168, 200, 62, {"Values": [col("dim_project", "project_code")]}, "Project", SLICER_OBJECTS)
+    visual("slicerCategory", "slicer", 656, 168, 260, 62, {"Values": [col("vw_cost_facts", "category_name")]}, "Cost category (spend visuals only)", SLICER_OBJECTS)
     # charts
     visual("budgetVsActual", "clusteredColumnChart", 20, 242, 620, 230,
            {"Category": [col("dim_project", "project_code")], "Y": [meas("Approved Budget"), meas("Actual Spend"), meas("EAC")]}, "Budget vs actual vs EAC (AED)")
