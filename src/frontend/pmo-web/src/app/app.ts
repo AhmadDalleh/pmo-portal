@@ -63,7 +63,8 @@ export class App {
       { path: '/projects', label: 'Projects', icon: 'folder_open' },
       { path: '/my-work', label: 'My work', icon: 'task_alt' },
     ];
-    return this.auth.isManager() ? [...items, { path: '/approvals', label: 'Approvals', icon: 'fact_check' }] : items;
+    const withApprovals = this.auth.isManager() ? [...items, { path: '/approvals', label: 'Approvals', icon: 'fact_check' }] : items;
+    return this.auth.isAdmin() ? [...withApprovals, { path: '/admin', label: 'Admin', icon: 'admin_panel_settings' }] : withApprovals;
   });
 
   constructor() {

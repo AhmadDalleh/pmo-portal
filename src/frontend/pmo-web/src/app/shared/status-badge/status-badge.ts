@@ -29,6 +29,12 @@ const STYLES: Record<string, BadgeStyle> = {
   approved: { icon: 'thumb_up', label: 'Approved', tone: 'good' },
   rejected: { icon: 'thumb_down', label: 'Rejected', tone: 'bad' },
   withdrawn: { icon: 'remove_circle_outline', label: 'Withdrawn', tone: 'neutral' },
+  inactive: { icon: 'person_off', label: 'Inactive', tone: 'neutral' },
+  succeeded: { icon: 'check_circle', label: 'Succeeded', tone: 'good' },
+  partial: { icon: 'warning', label: 'Partial', tone: 'warn' },
+  failed: { icon: 'error', label: 'Failed', tone: 'bad' },
+  running: { icon: 'autorenew', label: 'Running', tone: 'info' },
+  processed: { icon: 'check_circle', label: 'Processed', tone: 'good' },
   // task date indicators
   overdue: { icon: 'alarm', label: 'Overdue', tone: 'bad' },
   due_today: { icon: 'today', label: 'Due today', tone: 'warn' },

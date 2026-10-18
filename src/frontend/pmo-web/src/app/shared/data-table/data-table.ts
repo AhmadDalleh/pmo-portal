@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, TemplateRef, computed, input, output } from '@angular/core';
+import { Component, TemplateRef, computed, input, output, signal } from '@angular/core';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
@@ -28,7 +28,7 @@ export interface Column<T> {
   template: `
     <app-async-state [status]="status()" [empty]="rows().length === 0" [error]="error()" [emptyText]="emptyText()" (retry)="retry.emit()">
       <div class="scroll">
-        <table mat-table [dataSource]="rows()" matSort [matSortActive]="sortActive()" [matSortDirection]="sortDirection()"
+        <table mat-table multiTemplateDataRows [dataSource]="rows()" matSort [matSortActive]="sortActive()" [matSortDirection]="sortDirection()"
                (matSortChange)="sortChange.emit($event)" [attr.aria-label]="label()">
           @for (col of columns(); track col.key) {
             <ng-container [matColumnDef]="col.key">
@@ -45,8 +45,14 @@ export interface Column<T> {
               <td mat-cell *matCellDef="let row" class="end"><ng-container [ngTemplateOutlet]="actions()!" [ngTemplateOutletContext]="{ $implicit: row }" /></td>
             </ng-container>
           }
+          <ng-container matColumnDef="__detail">
+            <td mat-cell *matCellDef="let row" [attr.colspan]="displayed().length">
+              @if (detail() && expanded() === row) { <div class="detail"><ng-container [ngTemplateOutlet]="detail()!" [ngTemplateOutletContext]="{ $implicit: row }" /></div> }
+            </td>
+          </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayed()"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayed()" [class.clickable]="clickable()" (click)="rowClick.emit(row)"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayed()" [class.clickable]="clickable() || !!detail()" (click)="onRow(row)"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['__detail']" class="detail-row" [class.collapsed]="!detail() || expanded() !== row"></tr>
         </table>
       </div>
       @if (total() > 0) {
@@ -59,6 +65,9 @@ export interface Column<T> {
     table { width: 100%; }
     .end { text-align: right; }
     tr.clickable { cursor: pointer; }
+    tr.detail-row.collapsed { display: none; }
+    tr.detail-row td { padding: 0; }
+    .detail { padding: 8px 16px 12px; background: var(--mat-sys-surface-container-low); }
     tr.clickable:hover { background: var(--mat-sys-surface-container); }
   `,
 })
@@ -76,6 +85,9 @@ export class DataTable<T> {
   readonly sortDirection = input<'asc' | 'desc'>('asc');
   readonly clickable = input(false);
   readonly actions = input<TemplateRef<{ $implicit: T }> | null>(null);
+  /** Optional expandable detail: clicking a row opens this template under it (used by the audit log). */
+  readonly detail = input<TemplateRef<{ $implicit: T }> | null>(null);
+  protected readonly expanded = signal<T | null>(null);
 
   readonly sortChange = output<Sort>();
   readonly pageChange = output<{ page: number; pageSize: number }>();
@@ -83,6 +95,11 @@ export class DataTable<T> {
   readonly rowClick = output<T>();
 
   protected readonly displayed = computed(() => [...this.columns().map((c) => c.key), ...(this.actions() ? ['__actions'] : [])]);
+
+  protected onRow(row: T): void {
+    if (this.detail()) this.expanded.update((current) => (current === row ? null : row));
+    this.rowClick.emit(row);
+  }
 
   protected onPage(e: PageEvent): void {
     this.pageChange.emit({ page: e.pageIndex + 1, pageSize: e.pageSize });

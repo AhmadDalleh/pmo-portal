@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { authGuard, managerGuard } from './core/auth/auth.guard';
+import { adminGuard, authGuard, managerGuard } from './core/auth/auth.guard';
 
 /** Feature pages are loaded on demand. Guards only improve navigation; every API call is checked again by the server. */
 export const routes: Routes = [
@@ -29,6 +29,18 @@ export const routes: Routes = [
       { path: 'approvals', canActivate: [managerGuard], loadComponent: () => import('./features/change-requests/approvals-page').then((m) => m.ApprovalsPage) },
       { path: 'change-requests/:id', loadComponent: () => import('./features/change-requests/change-request-page').then((m) => m.ChangeRequestPage) },
       { path: 'notifications', loadComponent: () => import('./features/notifications/notifications-page').then((m) => m.NotificationsPage) },
+      {
+        path: 'admin',
+        canActivate: [adminGuard],
+        loadComponent: () => import('./features/admin/admin-shell').then((m) => m.AdminShell),
+        children: [
+          { path: '', pathMatch: 'full', redirectTo: 'users' },
+          { path: 'users', loadComponent: () => import('./features/admin/admin-users').then((m) => m.AdminUsers) },
+          { path: 'audit', loadComponent: () => import('./features/admin/admin-audit').then((m) => m.AdminAudit) },
+          { path: 'automation', loadComponent: () => import('./features/admin/admin-automation').then((m) => m.AdminAutomation) },
+          { path: 'categories', loadComponent: () => import('./features/admin/admin-categories').then((m) => m.AdminCategories) },
+        ],
+      },
       { path: 'dashboard', loadComponent: () => import('./features/dashboard/dashboard-page').then((m) => m.DashboardPage) },
       { path: 'dashboard/drilldown/:kind', loadComponent: () => import('./features/dashboard/drilldown-page').then((m) => m.DrilldownPage) },
     ],

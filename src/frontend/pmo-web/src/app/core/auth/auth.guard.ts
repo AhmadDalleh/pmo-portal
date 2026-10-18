@@ -10,3 +10,6 @@ export const authGuard: CanActivateFn = (_route, state) => {
 
 /** Hides pages the role cannot use (Project Manager / Administrator only). The API refuses the calls anyway. */
 export const managerGuard: CanActivateFn = () => (inject(AuthService).isManager() ? true : inject(Router).createUrlTree(['/projects']));
+
+/** Administrator only. The menu entry is hidden for everyone else and the API refuses the calls anyway. */
+export const adminGuard: CanActivateFn = () => (inject(AuthService).isAdmin() ? true : inject(Router).createUrlTree(['/projects']));
