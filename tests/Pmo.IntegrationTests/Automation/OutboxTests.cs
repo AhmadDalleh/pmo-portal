@@ -92,7 +92,7 @@ public class OutboxTests(PmoApiFactory factory)
 
         for (var attempt = 2; attempt <= 5; attempt++)
         {
-            await Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.ExecuteSqlAsync(db.Database, $"UPDATE outbox_messages SET available_at = now() WHERE id = {id}");
+            await Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.ExecuteSqlAsync(db.Database, $"UPDATE outbox_messages SET available_at = now() - interval '1 minute' WHERE id = {id}");   // clearly due, same reason as above
             await RunWorkerOnceAsync();
         }
 
