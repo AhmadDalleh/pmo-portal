@@ -1,0 +1,29 @@
+id,job_name,started_at,finished_at,status,messages_processed,messages_failed,error,correlation_id
+1,OutboxProcessor,2026-01-18 11:00:08+00,2026-01-18 11:00:10+00,succeeded,1,0,,seed-run-1
+2,OutboxProcessor,2026-02-14 13:00:08+00,2026-02-14 13:00:10+00,succeeded,1,0,,seed-run-2
+3,OutboxProcessor,2026-02-22 11:00:08+00,2026-02-22 11:00:10+00,succeeded,1,0,,seed-run-3
+4,OutboxProcessor,2026-03-08 11:00:08+00,2026-03-08 11:00:10+00,succeeded,1,0,,seed-run-4
+5,OutboxProcessor,2026-04-20 11:00:08+00,2026-04-20 11:00:10+00,succeeded,1,0,,seed-run-5
+6,OutboxProcessor,2026-07-28 14:00:08+00,2026-07-28 14:00:10+00,succeeded,1,0,,seed-run-6
+7,OutboxProcessor,2026-08-19 14:00:08+00,2026-08-19 14:00:10+00,partial,0,1,Notification channel unavailable (simulated).,seed-run-7
+8,OutboxProcessor,2026-08-20 14:00:08+00,2026-08-20 14:00:10+00,succeeded,1,0,,seed-run-8
+9,DailyProgressSnapshot,2026-09-11 06:00:00+00,2026-09-11 06:00:02+00,succeeded,10,0,,seed-run-9
+10,DailyProgressSnapshot,2026-09-12 06:00:00+00,2026-09-12 06:00:02+00,succeeded,10,0,,seed-run-10
+11,DailyProgressSnapshot,2026-09-13 06:00:00+00,2026-09-13 06:00:02+00,succeeded,10,0,,seed-run-11
+12,DailyProgressSnapshot,2026-09-14 06:00:00+00,2026-09-14 06:00:02+00,succeeded,10,0,,seed-run-12
+13,DailyProgressSnapshot,2026-09-15 06:00:00+00,2026-09-15 06:00:02+00,succeeded,10,0,,seed-run-13
+14,DailyProgressSnapshot,2026-09-16 06:00:00+00,2026-09-16 06:00:02+00,succeeded,10,0,,seed-run-14
+15,DailyProgressSnapshot,2026-09-17 06:00:00+00,2026-09-17 06:00:02+00,succeeded,10,0,,seed-run-15
+16,DailyProgressSnapshot,2026-09-18 06:00:00+00,2026-09-18 06:00:02+00,succeeded,10,0,,seed-run-16
+17,DailyProgressSnapshot,2026-09-19 06:00:00+00,2026-09-19 06:00:02+00,succeeded,10,0,,seed-run-17
+18,DailyProgressSnapshot,2026-09-20 06:00:00+00,2026-09-20 06:00:02+00,succeeded,10,0,,seed-run-18
+19,DailyProgressSnapshot,2026-09-21 06:00:00+00,2026-09-21 06:00:02+00,succeeded,10,0,,seed-run-19
+20,DailyProgressSnapshot,2026-09-22 06:00:00+00,2026-09-22 06:00:02+00,succeeded,10,0,,seed-run-20
+21,DailyProgressSnapshot,2026-09-23 06:00:00+00,2026-09-23 06:00:02+00,succeeded,10,0,,seed-run-21
+22,DailyProgressSnapshot,2026-09-24 06:00:00+00,2026-09-24 06:00:02+00,succeeded,10,0,,seed-run-22
+23,DailyProgressSnapshot,2026-09-25 06:00:00+00,2026-09-25 06:00:02+00,succeeded,10,0,,seed-run-23
+24,DailyProgressSnapshot,2026-09-26 06:00:00+00,2026-09-26 06:00:02+00,succeeded,10,0,,seed-run-24
+25,DailyProgressSnapshot,2026-09-27 06:00:00+00,2026-09-27 06:00:02+00,succeeded,10,0,,seed-run-25
+26,DailyProgressSnapshot,2026-09-28 06:00:00+00,2026-09-28 06:00:02+00,succeeded,10,0,,seed-run-26
+27,DailyProgressSnapshot,2026-09-29 06:00:00+00,2026-09-29 06:00:02+00,succeeded,10,0,,seed-run-27
+28,DailyProgressSnapshot,2026-09-30 06:00:00+00,2026-09-30 06:00:02+00,succeeded,10,0,,seed-run-28

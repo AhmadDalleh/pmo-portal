@@ -1,0 +1,6 @@
+id,code,name,is_active
+1,LABOUR,Labour,true
+2,SOFTWARE,Software Licences,true
+3,HARDWARE,Hardware,true
+4,SERVICES,Professional Services,true
+5,TRAVEL,Travel,true

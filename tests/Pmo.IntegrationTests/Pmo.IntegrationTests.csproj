@@ -15,5 +15,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\backend\Pmo.Api\Pmo.Api.csproj" />
+    <ProjectReference Include="..\..\tools\DataGenerator\DataGenerator.csproj" />
   </ItemGroup>
 </Project>

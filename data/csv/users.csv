@@ -1,0 +1,19 @@
+id,email,full_name,department_id,job_title,is_active,role
+1,admin1@pmo.example,Isac Towne,3,PMO Administrator,true,Administrator
+2,admin2@pmo.example,Jonathon Skiles,1,PMO Administrator,true,Administrator
+3,pm1@pmo.example,Chanelle Stamm,1,Project Manager,true,ProjectManager
+4,pm2@pmo.example,Eladio Altenwerth,2,Project Manager,true,ProjectManager
+5,pm3@pmo.example,Gerardo Klein,3,Project Manager,true,ProjectManager
+6,pm4@pmo.example,Ulises Dicki,2,Project Manager,true,ProjectManager
+7,pm5@pmo.example,Harry Berge,3,Project Manager,true,ProjectManager
+8,con1@pmo.example,Vergie Dickinson,2,Business Analyst,true,Contributor
+9,con2@pmo.example,Keagan Willms,3,QA Engineer,true,Contributor
+10,con3@pmo.example,Shanelle Hartmann,1,Network Engineer,true,Contributor
+11,con4@pmo.example,Jennings Labadie,2,Data Engineer,true,Contributor
+12,con5@pmo.example,Marian Kessler,3,Software Engineer,true,Contributor
+13,con6@pmo.example,Lawson Kris,1,Business Analyst,true,Contributor
+14,con7@pmo.example,Marisa Dibbert,2,QA Engineer,true,Contributor
+15,con8@pmo.example,Mitchell Hintz,3,Network Engineer,true,Contributor
+16,con9@pmo.example,Kenyatta Nienow,1,Data Engineer,true,Contributor
+17,con10@pmo.example,Riley Collins,2,Software Engineer,true,Contributor
+18,con11@pmo.example,Elbert Graham,3,Business Analyst,true,Contributor

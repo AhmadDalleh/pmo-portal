@@ -1,0 +1,4 @@
+id,code,name,is_active
+1,DIGI,Digital Channels,true
+2,NETW,Network Engineering,true
+3,ENTS,Enterprise Solutions,true

@@ -414,6 +414,8 @@ Note: the draft → posted transition is an UPDATE where `OLD.status = 'draft'`,
 | `audit_events (entity_type, entity_id)`, `(occurred_at)`, `(actor_id)` | audit review |
 | `outbox_messages (available_at) WHERE status = 'pending'` (partial) | worker polling |
 
+Note: EF Core also creates an index on every foreign-key column by default (`ix_<table>_<column>`), so the FK columns not listed above are indexed too.
+
 ---
 
 ## 6. Calculation definitions (KPI SQL)

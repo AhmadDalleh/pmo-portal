@@ -1,0 +1,12 @@
+id,user_id,title,body,link_url,source_outbox_id,created_at,read_at
+1,9,Change request CR-0001 approved,"""Add CRM sync module"" was approved.",/change-requests/1,1,2026-01-18 11:00:10+00,2026-01-18 13:00:10+00
+2,7,Change request CR-0001 approved,"""Add CRM sync module"" was approved.",/change-requests/1,1,2026-01-18 11:00:10+00,
+3,4,Change request CR-0002 approved,"""Extra probes for remote sites"" was approved.",/change-requests/2,2,2026-02-14 13:00:10+00,
+4,8,Change request CR-0003 approved,"""Accessibility remediation"" was approved.",/change-requests/3,3,2026-02-22 11:00:10+00,2026-02-22 13:00:10+00
+5,3,Change request CR-0003 approved,"""Accessibility remediation"" was approved.",/change-requests/3,3,2026-02-22 11:00:10+00,
+6,12,Change request CR-0005 approved,"""Add punch-out catalogue"" was approved.",/change-requests/5,4,2026-03-08 11:00:10+00,
+7,5,Change request CR-0005 approved,"""Add punch-out catalogue"" was approved.",/change-requests/5,4,2026-03-08 11:00:10+00,2026-03-08 13:00:10+00
+8,12,Change request CR-0004 approved,"""Additional language support"" was approved.",/change-requests/4,5,2026-04-20 11:00:10+00,
+9,3,Change request CR-0004 approved,"""Additional language support"" was approved.",/change-requests/4,5,2026-04-20 11:00:10+00,
+10,3,PRJ-009 has used 90% of its budget,Posted costs crossed 90% of the current approved budget.,/projects/9/finance,6,2026-07-28 14:00:10+00,2026-07-28 16:00:10+00
+11,3,PRJ-001 has used 90% of its budget,Posted costs crossed 90% of the current approved budget.,/projects/1/finance,8,2026-08-20 14:00:10+00,

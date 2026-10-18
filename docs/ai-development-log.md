@@ -32,3 +32,15 @@ Required by assignment §9: ≥ 4 meaningful iterations, ≥ 1 case where AI was
 - **Revised implementation (files / commit):**
 - **Test evidence:** (test names, output, SQL check)
 - **Was the AI wrong?** (yes/no — if yes: how I found it and how I corrected it)
+
+---
+
+### #1 — Generator entry point clashed with the API test host (I1–I3, 2026-10-18)
+- **Requirement / problem:** integration tests need to call the generator and importer in-process (Testcontainers), so the test project references `tools/DataGenerator`.
+- **Prompt (summary):** "Build slice 2: data generator + import; assert the §10 edge cases; seed 20260930; password from DEMO_USER_PASSWORD."
+- **AI result:** the generator used top-level statements in `Program.cs`. The first `dotnet test` failed with `CS0433: type 'Program' exists in both DataGenerator and Pmo.Api` because `PmoApiFactory : WebApplicationFactory<Program>` could no longer tell them apart.
+- **Accepted:** the layout (seeders, plan tables, `EdgeCaseChecks`, COPY importer).
+- **Rejected / changed, and why:** replaced top-level statements with a named `GeneratorCli.Main`, so no second `Program` type exists. Cheaper than aliasing in every test file.
+- **Revised implementation:** `tools/DataGenerator/GeneratorCli.cs`.
+- **Test evidence:** `dotnet test` → 24 passed (8 earlier + 16 new).
+- **Was the AI wrong?** Yes (a design slip, caught by the compiler): a console tool that other projects reference must not use top-level statements.

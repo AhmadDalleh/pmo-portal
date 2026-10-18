@@ -8,7 +8,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
-      - "5433:5432"
+      - "${DB_HOST_PORT:-5433}:5432"
     volumes:
       - pmo-db-data:/var/lib/postgresql/data
     healthcheck:

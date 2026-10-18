@@ -1,0 +1,10 @@
+id,type,payload,dedup_key,status,occurred_at,available_at,attempts,processed_at,last_error
+1,ChangeRequestApproved,"{""changeRequestId"":1}",cr-approved:1,processed,2026-01-18 11:00:00+00,2026-01-18 11:00:00+00,1,2026-01-18 11:00:10+00,
+2,ChangeRequestApproved,"{""changeRequestId"":2}",cr-approved:2,processed,2026-02-14 13:00:00+00,2026-02-14 13:00:00+00,1,2026-02-14 13:00:10+00,
+3,ChangeRequestApproved,"{""changeRequestId"":3}",cr-approved:3,processed,2026-02-22 11:00:00+00,2026-02-22 11:00:00+00,1,2026-02-22 11:00:10+00,
+4,ChangeRequestApproved,"{""changeRequestId"":5}",cr-approved:5,processed,2026-03-08 11:00:00+00,2026-03-08 11:00:00+00,1,2026-03-08 11:00:10+00,
+5,ChangeRequestApproved,"{""changeRequestId"":4}",cr-approved:4,processed,2026-04-20 11:00:00+00,2026-04-20 11:00:00+00,1,2026-04-20 11:00:10+00,
+6,BudgetThresholdCrossed,"{""projectId"":9,""threshold"":90}",budget:9:90,processed,2026-07-28 14:00:00+00,2026-07-28 14:00:00+00,1,2026-07-28 14:00:10+00,
+7,BudgetThresholdCrossed,"{""projectId"":9,""threshold"":100}",budget:9:100,failed,2026-08-19 14:00:00+00,2026-08-19 14:00:00+00,5,,Notification channel unavailable (simulated).
+8,BudgetThresholdCrossed,"{""projectId"":1,""threshold"":90}",budget:1:90,processed,2026-08-20 14:00:00+00,2026-08-20 14:00:00+00,1,2026-08-20 14:00:10+00,
+9,ChangeRequestApproved,"{""changeRequestId"":18}",cr-approved:18,pending,2026-09-30 11:00:00+00,2026-09-30 11:00:00+00,0,,

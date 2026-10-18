@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>DataGenerator</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Bogus" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\backend\Pmo.Infrastructure\Pmo.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>
