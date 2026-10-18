@@ -32,7 +32,7 @@ Setup: seed imported, API and web running, reporting date 2026-09-30. Each item 
 - Automated: `DashboardTests`.
 
 ## F. Analytics agreement (J5)
-- Power BI not built; SQL reconciliation is covered by `DashboardTests.Kpis_Unfiltered_MatchIndependentSqlOverTheWholeDatabase`.
+- SQL vs web: `DashboardTests.Kpis_Unfiltered_MatchIndependentSqlOverTheWholeDatabase` and `ReportingViewTests`. Power BI column: fill `docs/reconciliation.md` after building the report (`powerbi/README.md`).
 
 ## G. Automation (H1, H3)
 - [ ] As `admin1`: `GET /api/admin/automation/outbox?status=failed` shows the seeded failed alert; `POST .../retry` returns it to pending; the worker processes it.

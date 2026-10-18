@@ -94,10 +94,10 @@ Legend: DONE / PARTIAL / MISSING / MANUAL (only you can do it). Effort: S under 
 ## §7 SQL and Power BI
 | Item | Status | Evidence or gap | Owner | Effort |
 |---|---|---|---|---|
-| Reporting views for Power BI | MISSING | `\dv` is empty. CLAUDE.md lists `sql/reports/`, which does not exist | Claude | M |
-| 4 commented SQL queries (overdue, project finance, open high risks, period spend/forecast or milestones) | MISSING as a deliverable | dashboard SQL exists in `Analytics/Dashboard/*.sql` but is not packaged or commented as report queries | Claude | S |
-| Power BI `.pbix` (model, date table, 5 DAX measures, slicers, page) | MANUAL | needs Power BI Desktop on your machine; Claude can prepare views, DAX text and model notes | You (Claude prepares inputs) | L |
-| Reconcile 4 KPIs across SQL, web, Power BI | PARTIAL | SQL vs web covered by tests; Power BI column and notes missing | You + Claude | M |
+| Reporting views for Power BI | DONE (session C+D) | migration `ReportingViews`: 8 views (`dim_date`, `dim_project`, `vw_*_facts`, `vw_project_financials`); `ReportingViewTests` (5 tests) | - | - |
+| 4 commented SQL queries (overdue, project finance, open high risks, period spend/forecast or milestones) | DONE (session C+D) | `sql/reports/01..04_*.sql` + README, run against the live DB | - | - |
+| Power BI `.pbix` (model, date table, 5 DAX measures, slicers, page) | MANUAL | build in Power BI Desktop; inputs ready: `powerbi/README.md` (connection, model, filter direction, page design), `powerbi/measures.dax` (12 measures) | You | L |
+| Reconcile 4 KPIs across SQL, web, Power BI | PARTIAL | `docs/reconciliation.md` has 7 KPIs with SQL and web values filled and discrepancy notes; Power BI column to fill after the report is built | You | S |
 
 ## §8 Automation and Access
 | Item | Status | Evidence or gap | Owner | Effort |
@@ -122,7 +122,7 @@ Legend: DONE / PARTIAL / MISSING / MANUAL (only you can do it). Effort: S under 
 | C Approval transaction | DONE (auto) / MANUAL | `ChangeRequestTests`; checklist C | You | S |
 | D Authorization denial | DONE | two Contributor 403 tests; checklist D | You (show in Swagger) | S |
 | E Dashboard integrity | DONE (auto) / MANUAL | `DashboardTests` | You | S |
-| F Analytics agreement | PARTIAL | needs Power BI column | You + Claude | M |
+| F Analytics agreement | PARTIAL | SQL and web agree (tested); Power BI column in `docs/reconciliation.md` | You | S |
 | G Automation / VBA | PARTIAL | automation DONE; Access missing | You | M |
 | H Engineering quality | DONE | 241 tests, error log with correlation id | - | - |
 

@@ -538,18 +538,20 @@ Right: **aggregate each one-to-many table to one row per project in its own CTE 
 
 ## 9. Reporting views (Power BI & reconciliation)
 
-Created by migration; read `reporting_settings.as_of_date`:
+Created by migration `ReportingViews`; read-only; the reporting date comes from `reporting_settings.as_of_date` (2026-09-30 baseline):
 
-- `vw_project_financials` — §6.1 per project
-- `vw_task_facts` — task rows + `is_overdue`, `is_due_today`, `weighted_progress`
-- `vw_risk_facts` — risk rows + `is_open`, `is_high_exposure`
-- `vw_cost_facts` — posted transactions ≤ as_of with category, project, department, month
-- `vw_forecast_facts` — forecasts with `is_future`
-- `dim_date` — calendar table (2025-01-01 … 2027-12-31) with year, quarter, month, month_start
+- `vw_project_financials` - section 6.1 per project (budget, spend, remaining, utilization, FTC, EAC, variance, flags `is_overspent`, `is_near_budget`, `is_projected_overrun`, `has_no_forecast`)
+- `vw_task_facts` - task rows + `is_overdue`, `is_due_today`, `is_blocked`, `weight_for_progress`, `weighted_progress` (0 for cancelled tasks, so `SUM(weighted_progress)/SUM(weight_for_progress)` is the progress formula)
+- `vw_milestone_facts` - milestone rows + `is_overdue`, `is_due_soon`
+- `vw_risk_facts` - risk rows + `is_open`, `is_high_exposure`, `is_open_high_exposure`
+- `vw_cost_facts` - posted transactions <= as_of with category, project, department, month (so `SUM(amount)` is the actual-spend KPI)
+- `vw_forecast_facts` - forecasts with `is_future`
+- `dim_project` - project attributes with department and owner names
+- `dim_date` - calendar view (2025-01-01 ... 2027-12-31, 1095 rows) with year, quarter, month, month_start. It is a view over `generate_series`, not a table, so there is no data to seed or keep in sync.
 
-Power BI imports dims + facts (star schema), single-direction filters from dims to facts. Facts are **never** related to each other directly — that is how the fan-out is avoided in the model.
+Power BI imports dims + facts (star schema), single-direction filters from dims to facts. Facts are **never** related to each other directly - that is how the fan-out is avoided in the model. Setup, model and page design: `powerbi/README.md`; measures: `powerbi/measures.dax`; KPI agreement: `docs/reconciliation.md`. `ReportingViewTests` asserts the views equal the dashboard API and base-table SQL.
 
-`/sql/reports/` holds the four required commented queries: overdue tasks, project financial performance, open high-exposure risks, period spend vs forecast + milestone status.
+`sql/reports/` holds the four required commented queries: overdue tasks, project financial performance, open high-exposure risks, period spend vs forecast + milestone status.
 
 ---
 

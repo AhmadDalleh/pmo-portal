@@ -36,7 +36,7 @@ Password for every account = the value of `DEMO_USER_PASSWORD` in your `.env`.
 `Domain` (entities and rules, no framework) → `Application` (feature services, validators, DTOs) → `Infrastructure` (EF Core, Dapper KPI SQL, Identity/JWT, outbox worker) → `Api` (thin controllers, policies, middleware). Authorization = role policy on the route + project scope check in the service (out of scope 404, not allowed 403). Details per slice: `docs/slices/`.
 
 ## Documents
-`docs/api-routes.md` · `docs/slices/*.md` (what, flow, decisions, demo, interview questions) · `docs/manual-test-checklist.md` · `docs/security-notes.md` · `docs/ai-development-log.md` · `docs/database-design.md`.
+`docs/api-routes.md` · `docs/slices/*.md` (what, flow, decisions, demo, interview questions) · `docs/manual-test-checklist.md` · `docs/security-notes.md` · `docs/ai-development-log.md` · `docs/database-design.md` · `sql/reports/` · `powerbi/` · `docs/reconciliation.md` · `docs/automation-evidence.md`.
 
 ## Status
 Built: A1-A6, B1-B6, C1-C7, D1-D2, E1-E5, F1-F11 (no UI for category admin), G1-G6, H1-H3 (no admin UI), I1-I3. Not built: risk matrix page outside the dashboard (D3 is the dashboard visual), milestone roadmap visual, admin UI screens, Power BI (J), slides (K9), Access (L), Docker images for api/web.
