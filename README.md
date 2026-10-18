@@ -12,6 +12,7 @@ dotnet tool restore
 dotnet user-secrets set "ConnectionStrings:Default" "Host=localhost;Port=5433;Database=pmo;Username=pmo;Password=<POSTGRES_PASSWORD>" --project src/backend/Pmo.Api
 dotnet user-secrets set "Jwt:Key" "<32+ random characters>" --project src/backend/Pmo.Api
 ./scripts/import-data.sh                   # (Windows: .\scripts\import-data.ps1) migrate + load data/csv + create demo users
+./scripts/reset-db.sh                      # (Windows: .\scripts\reset-db.ps1 -Yes) wipe and reload the seed; -Hard also rebuilds the schema
 dotnet run --project src/backend/Pmo.Api   # API on http://localhost:5217, Swagger at /swagger
 cd src/frontend/pmo-web && npm install && npm start   # http://localhost:4200 (proxies /api to the API)
 ```

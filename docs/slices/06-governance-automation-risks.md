@@ -42,7 +42,7 @@ Decide: change request update + history + audit + outbox in one transaction. A t
 1. `con1` (member of PRJ-001): `POST /api/projects/1/change-requests`, then `POST /api/change-requests/{id}/submit`.
 2. `con1` tries `POST /api/approvals/change-requests/{id}/decision` → 403. `pm1` (owner) approves with a reason → 200. In psql: `select * from change_request_history where change_request_id = <id>` (3 rows), `select * from outbox_messages order by id desc limit 1`.
 3. Wait up to 10 s (or call nothing: the worker runs by itself). `con1`: `GET /api/notifications` shows the approval; `GET /api/notifications/unread-count` is 1.
-4. `admin1`: `GET /api/admin/automation/runs` shows the run; `GET /api/admin/automation/outbox?status=failed` shows the seeded failed alert; `POST .../retry` puts it back in the queue.
+4. `admin1`: `GET /api/admin/automation/runs` shows the run; `GET /api/admin/automation/outbox?status=failed` shows the seeded failed alert; `POST .../retry` puts it back in the queue. This failed row is seeded on purpose (see `docs/automation-evidence.md`); `scripts/reset-db` brings it back after a retry.
 5. `pm1` approves their own request → 403 `self_approval_forbidden`; `update change_requests set decided_by_id = requested_by_id ...` in psql → check violation.
 
 ## Likely interview questions
