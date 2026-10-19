@@ -6,8 +6,10 @@ table vw_milestone_facts
 		isHidden
 		formatString: 0
 		lineageTag: e1e0bb22-7657-5c84-b64a-325f1b42346e
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: milestone_id
+
+		annotation SummarizationSetBy = Automatic
 
 	column project_id
 		dataType: int64
@@ -48,12 +50,21 @@ table vw_milestone_facts
 		summarizeBy: none
 		sourceColumn: due_date
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column completed_at
 		dataType: dateTime
 		formatString: yyyy-mm-dd
 		lineageTag: 2dce7063-7fd5-5768-b504-cdf4da2cdcbd
 		summarizeBy: none
 		sourceColumn: completed_at
+
+		variation Variation
+			isDefault
+			relationship: fb70175f-41cd-4196-bb9c-08453c7b6757
+			defaultHierarchy: LocalDateTable_c4f60db7-f60e-456e-9dc9-c317413807a0.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	column is_overdue
 		dataType: boolean
@@ -74,6 +85,13 @@ table vw_milestone_facts
 		lineageTag: 1a44fe31-2a41-57b1-ba90-f4f8fe7e04a8
 		summarizeBy: none
 		sourceColumn: as_of_date
+
+		variation Variation
+			isDefault
+			relationship: ddd1733f-ac7a-4138-a0e5-36c336ce1e61
+			defaultHierarchy: LocalDateTable_53388d00-39a6-41fc-9977-98fbee5f552f.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	partition vw_milestone_facts = m
 		mode: import

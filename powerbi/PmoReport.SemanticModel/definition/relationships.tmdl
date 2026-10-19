@@ -42,3 +42,48 @@ relationship d50e3630-2c05-56cb-a137-0b0e5e87aeed
 	fromColumn: vw_risk_facts.due_date
 	toColumn: dim_date.date_key
 
+relationship e1687e70-2bc1-4a02-ba67-60bac46a6d49
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_project.start_date
+	toColumn: LocalDateTable_726c92e0-e3ce-4326-b8a8-90b57fd9fb2b.Date
+
+relationship 666c5441-eb73-4e72-9c49-ad4b9ea0f733
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_project.planned_end_date
+	toColumn: LocalDateTable_dfe72e86-604d-46cc-a8aa-13bc045c4214.Date
+
+relationship 0de6efb0-fa99-4a17-b024-59d25fc16976
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_project.actual_end_date
+	toColumn: LocalDateTable_302f2ee3-e3fe-4338-8785-5e3fabf160cc.Date
+
+relationship 217522f7-c7d6-49b8-b21b-42f00724539c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: vw_project_financials.as_of_date
+	toColumn: LocalDateTable_20982846-836f-4cb4-9475-745f745ce68a.Date
+
+relationship 50fabca7-548c-4ecc-8ddd-70ef76275eb3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: vw_task_facts.start_date
+	toColumn: LocalDateTable_5b54f5e2-3edf-4611-84d0-5fb1750b98f5.Date
+
+relationship d419dd4c-b250-4ea8-a94a-a7a512db86eb
+	joinOnDateBehavior: datePartOnly
+	fromColumn: vw_task_facts.as_of_date
+	toColumn: LocalDateTable_44404c5e-20af-46ea-b2a1-808dca9f268c.Date
+
+relationship fb70175f-41cd-4196-bb9c-08453c7b6757
+	joinOnDateBehavior: datePartOnly
+	fromColumn: vw_milestone_facts.completed_at
+	toColumn: LocalDateTable_c4f60db7-f60e-456e-9dc9-c317413807a0.Date
+
+relationship ddd1733f-ac7a-4138-a0e5-36c336ce1e61
+	joinOnDateBehavior: datePartOnly
+	fromColumn: vw_milestone_facts.as_of_date
+	toColumn: LocalDateTable_53388d00-39a6-41fc-9977-98fbee5f552f.Date
+
+relationship 6a3ff5d8-7d21-4c5b-a167-24c4c7998314
+	joinOnDateBehavior: datePartOnly
+	fromColumn: vw_cost_facts.month_start
+	toColumn: LocalDateTable_42439968-b006-44ed-99e5-b72c9cb14bc2.Date
+

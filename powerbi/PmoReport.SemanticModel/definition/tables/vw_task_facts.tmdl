@@ -6,8 +6,10 @@ table vw_task_facts
 		isHidden
 		formatString: 0
 		lineageTag: 1f337300-3ad8-529e-add2-40eb5cf48860
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: task_id
+
+		annotation SummarizationSetBy = Automatic
 
 	column project_id
 		dataType: int64
@@ -60,6 +62,13 @@ table vw_task_facts
 		summarizeBy: none
 		sourceColumn: start_date
 
+		variation Variation
+			isDefault
+			relationship: 50fabca7-548c-4ecc-8ddd-70ef76275eb3
+			defaultHierarchy: LocalDateTable_5b54f5e2-3edf-4611-84d0-5fb1750b98f5.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
+
 	column due_date
 		dataType: dateTime
 		formatString: yyyy-mm-dd
@@ -67,19 +76,25 @@ table vw_task_facts
 		summarizeBy: none
 		sourceColumn: due_date
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column weight
 		dataType: int64
 		formatString: 0
 		lineageTag: c4ee3388-c93a-5082-95f4-362648e9096a
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: weight
+
+		annotation SummarizationSetBy = Automatic
 
 	column progress_pct
 		dataType: int64
 		formatString: 0
 		lineageTag: 92059211-7aee-5a20-9a78-e4926d4b46df
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: progress_pct
+
+		annotation SummarizationSetBy = Automatic
 
 	column is_overdue
 		dataType: boolean
@@ -104,16 +119,20 @@ table vw_task_facts
 		isHidden
 		formatString: 0
 		lineageTag: 666d7bb0-f0ab-51b4-870c-c9910250fe71
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: weight_for_progress
+
+		annotation SummarizationSetBy = Automatic
 
 	column weighted_progress
 		dataType: int64
 		isHidden
 		formatString: 0
 		lineageTag: 95dc639f-905e-5c1a-bdef-06c3a92eb5ee
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: weighted_progress
+
+		annotation SummarizationSetBy = Automatic
 
 	column as_of_date
 		dataType: dateTime
@@ -122,6 +141,13 @@ table vw_task_facts
 		lineageTag: 56ff2926-92c6-505b-bba2-17afbbed95f0
 		summarizeBy: none
 		sourceColumn: as_of_date
+
+		variation Variation
+			isDefault
+			relationship: d419dd4c-b250-4ea8-a94a-a7a512db86eb
+			defaultHierarchy: LocalDateTable_44404c5e-20af-46ea-b2a1-808dca9f268c.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	partition vw_task_facts = m
 		mode: import

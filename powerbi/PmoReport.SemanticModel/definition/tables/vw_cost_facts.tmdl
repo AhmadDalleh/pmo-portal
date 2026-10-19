@@ -6,8 +6,10 @@ table vw_cost_facts
 		isHidden
 		formatString: 0
 		lineageTag: ac641050-67ce-5172-aa0f-c574b9100c8b
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: cost_id
+
+		annotation SummarizationSetBy = Automatic
 
 	column project_id
 		dataType: int64
@@ -48,6 +50,8 @@ table vw_cost_facts
 		summarizeBy: none
 		sourceColumn: txn_date
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column month_start
 		dataType: dateTime
 		formatString: yyyy-mm-dd
@@ -55,12 +59,21 @@ table vw_cost_facts
 		summarizeBy: none
 		sourceColumn: month_start
 
+		variation Variation
+			isDefault
+			relationship: 6a3ff5d8-7d21-4c5b-a167-24c4c7998314
+			defaultHierarchy: LocalDateTable_42439968-b006-44ed-99e5-b72c9cb14bc2.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
+
 	column amount
 		dataType: decimal
 		formatString: #,0.00
 		lineageTag: 9b8c81bd-f2a1-5b49-bb38-51aa26806413
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: amount
+
+		annotation SummarizationSetBy = Automatic
 
 	column description
 		dataType: string

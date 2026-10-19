@@ -49,57 +49,73 @@ table vw_project_financials
 		dataType: decimal
 		formatString: #,0.00
 		lineageTag: 7422991c-1b1b-5f2f-ad2c-810a49198e6b
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: initial_amount
+
+		annotation SummarizationSetBy = Automatic
 
 	column current_budget
 		dataType: decimal
 		formatString: #,0.00
 		lineageTag: a0ed3a85-a0b5-52d2-8406-f2774e52a467
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: current_budget
+
+		annotation SummarizationSetBy = Automatic
 
 	column actual_spend
 		dataType: decimal
 		formatString: #,0.00
 		lineageTag: 1e87f7d1-3de4-58d1-89fb-50ff7ae55e5f
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: actual_spend
+
+		annotation SummarizationSetBy = Automatic
 
 	column remaining_budget
 		dataType: decimal
 		formatString: #,0.00
 		lineageTag: e8b2a795-9bdc-5211-ba3c-6ba083e8f8bf
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: remaining_budget
+
+		annotation SummarizationSetBy = Automatic
 
 	column utilization
 		dataType: double
 		formatString: 0.0000
 		lineageTag: 44cf7acf-26ac-500e-98c7-d19051091016
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: utilization
+
+		annotation SummarizationSetBy = Automatic
 
 	column forecast_to_complete
 		dataType: decimal
 		formatString: #,0.00
 		lineageTag: 1e8b4ae3-a5c4-5e58-8d3c-9facb4b94fac
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: forecast_to_complete
+
+		annotation SummarizationSetBy = Automatic
 
 	column eac
 		dataType: decimal
 		formatString: #,0.00
 		lineageTag: b17eea20-c74e-5656-94c6-e1f51aec54b3
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: eac
+
+		annotation SummarizationSetBy = Automatic
 
 	column projected_variance
 		dataType: decimal
 		formatString: #,0.00
 		lineageTag: 9bedca72-ab6d-5cd3-8eac-5948f445eb4b
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: projected_variance
+
+		annotation SummarizationSetBy = Automatic
 
 	column has_no_forecast
 		dataType: boolean
@@ -132,6 +148,13 @@ table vw_project_financials
 		lineageTag: a0a18022-1b67-5fed-967a-a8bf4c158d8e
 		summarizeBy: none
 		sourceColumn: as_of_date
+
+		variation Variation
+			isDefault
+			relationship: 217522f7-c7d6-49b8-b21b-42f00724539c
+			defaultHierarchy: LocalDateTable_20982846-836f-4cb4-9475-745f745ce68a.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	partition vw_project_financials = m
 		mode: import

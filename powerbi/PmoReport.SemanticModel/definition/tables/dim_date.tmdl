@@ -10,6 +10,8 @@ table dim_date
 		summarizeBy: none
 		sourceColumn: date_key
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column year
 		dataType: int64
 		formatString: 0
@@ -43,6 +45,8 @@ table dim_date
 		lineageTag: a8108451-cf8e-535b-acda-989561218a6e
 		summarizeBy: none
 		sourceColumn: month_start
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	partition dim_date = m
 		mode: import

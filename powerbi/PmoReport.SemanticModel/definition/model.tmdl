@@ -11,6 +11,8 @@ annotation PBI_QueryOrder = ["dim_date","dim_project","vw_project_financials","v
 
 annotation PBI_ProTooling = ["DevMode"]
 
+annotation __PBI_TimeIntelligenceEnabled = 1
+
 ref table _Measures
 ref table dim_date
 ref table dim_project
@@ -20,4 +22,14 @@ ref table vw_milestone_facts
 ref table vw_risk_facts
 ref table vw_cost_facts
 ref table vw_forecast_facts
+ref table DateTableTemplate_f7b2af65-ca54-4027-928c-8b176883a98d
+ref table LocalDateTable_726c92e0-e3ce-4326-b8a8-90b57fd9fb2b
+ref table LocalDateTable_dfe72e86-604d-46cc-a8aa-13bc045c4214
+ref table LocalDateTable_302f2ee3-e3fe-4338-8785-5e3fabf160cc
+ref table LocalDateTable_20982846-836f-4cb4-9475-745f745ce68a
+ref table LocalDateTable_5b54f5e2-3edf-4611-84d0-5fb1750b98f5
+ref table LocalDateTable_44404c5e-20af-46ea-b2a1-808dca9f268c
+ref table LocalDateTable_c4f60db7-f60e-456e-9dc9-c317413807a0
+ref table LocalDateTable_53388d00-39a6-41fc-9977-98fbee5f552f
+ref table LocalDateTable_42439968-b006-44ed-99e5-b72c9cb14bc2
 

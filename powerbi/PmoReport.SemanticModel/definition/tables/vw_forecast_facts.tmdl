@@ -48,6 +48,8 @@ table vw_forecast_facts
 		summarizeBy: none
 		sourceColumn: period_month
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column amount
 		dataType: decimal
 		formatString: #,0.00

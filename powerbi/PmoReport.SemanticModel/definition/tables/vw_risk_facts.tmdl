@@ -81,6 +81,8 @@ table vw_risk_facts
 		summarizeBy: none
 		sourceColumn: due_date
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column is_open
 		dataType: boolean
 		lineageTag: 8eab3bd0-a1b6-5bf7-9259-f0791bef3c93

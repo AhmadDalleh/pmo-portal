@@ -46,6 +46,13 @@ table dim_project
 		summarizeBy: none
 		sourceColumn: start_date
 
+		variation Variation
+			isDefault
+			relationship: e1687e70-2bc1-4a02-ba67-60bac46a6d49
+			defaultHierarchy: LocalDateTable_726c92e0-e3ce-4326-b8a8-90b57fd9fb2b.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
+
 	column planned_end_date
 		dataType: dateTime
 		formatString: yyyy-mm-dd
@@ -53,12 +60,26 @@ table dim_project
 		summarizeBy: none
 		sourceColumn: planned_end_date
 
+		variation Variation
+			isDefault
+			relationship: 666c5441-eb73-4e72-9c49-ad4b9ea0f733
+			defaultHierarchy: LocalDateTable_dfe72e86-604d-46cc-a8aa-13bc045c4214.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
+
 	column actual_end_date
 		dataType: dateTime
 		formatString: yyyy-mm-dd
 		lineageTag: 2b7f23a0-44aa-5caf-b74b-42cd87768639
 		summarizeBy: none
 		sourceColumn: actual_end_date
+
+		variation Variation
+			isDefault
+			relationship: 0de6efb0-fa99-4a17-b024-59d25fc16976
+			defaultHierarchy: LocalDateTable_302f2ee3-e3fe-4338-8785-5e3fabf160cc.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	partition dim_project = m
 		mode: import
